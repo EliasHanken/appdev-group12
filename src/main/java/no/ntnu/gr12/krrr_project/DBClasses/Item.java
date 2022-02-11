@@ -22,10 +22,6 @@ abstract public class Item {
     }
 
     public Item() {
-        this.itemID = "";
-        this.modelNumber= "";
-        this.price = 0;
-
     }
 
 
