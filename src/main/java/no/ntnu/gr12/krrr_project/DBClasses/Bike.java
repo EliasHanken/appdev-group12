@@ -1,5 +1,6 @@
 package no.ntnu.gr12.krrr_project.DBClasses;
 
+import jdk.jshell.execution.Util;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import java.util.Date;
 @Entity
 public class Bike {
     @Id
-    private String bikeID;
+    private String bikeId;
     private String modelNumber;
     private boolean rentedFlag;
     //TODO: Unsure if this will work, may need to use another format for timestamps.
@@ -20,20 +21,29 @@ public class Bike {
 
     public Bike() {
         this.rentedFlag = false;
-        this.loanStartTime = null;
-        this.loanEndTime = null;
-        this.bikeID = null;
-        this.modelNumber = null;
-        this.userKey = null;
+        this.loanStartTime = Utils.dateNow();
+        this.loanEndTime = Utils.dateLaterSeconds(60*60);
+        this.bikeId = "null";
+        this.modelNumber = "null";
+        this.userKey = "null";
     }
 
     public Bike(String bikeID, String modelNumber, boolean rentedFlag) {
-        this.bikeID = bikeID;
+        this.bikeId = bikeID;
         this.modelNumber = modelNumber;
         this.rentedFlag = rentedFlag;
         this.loanStartTime = null;
         this.loanEndTime = null;
         this.userKey = null;
+    }
+
+    @org.springframework.data.annotation.Id
+    public String getBikeId() {
+        return bikeId;
+    }
+
+    public void setBikeId(String bikeId) {
+        this.bikeId = bikeId;
     }
 
     public String getModelNumber() {
@@ -56,7 +66,7 @@ public class Bike {
         return loanStartTime;
     }
 
-    public void Date (Date loanStartTime) {
+    public void setLoanStartTime(Date loanStartTime) {
         this.loanStartTime = loanStartTime;
     }
 
@@ -68,8 +78,12 @@ public class Bike {
         this.loanEndTime = loanEndTime;
     }
 
-    public void setLoanStartTime(Date loanStartTime){
-        this.loanStartTime = loanStartTime;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUserKey() {
@@ -78,23 +92,5 @@ public class Bike {
 
     public void setUserKey(String userKey) {
         this.userKey = userKey;
-    }
-
-    public void setBikeID(String bikeID) {
-        this.bikeID = bikeID;
-    }
-
-    @Id
-    public String getBikeID() {
-        return bikeID;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
