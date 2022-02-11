@@ -7,6 +7,9 @@ import javax.persistence.Id;
 
 /**
  * Abstract class that contains all the items sold in the website for the database
+ *
+ * @author Tor Oveland Gikling
+ * @version 0.0.1
  */
 @Entity
 abstract public class Item {
