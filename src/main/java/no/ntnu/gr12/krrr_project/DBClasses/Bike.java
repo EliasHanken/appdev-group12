@@ -4,15 +4,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class Bike {
+    @Id
     private String bikeID;
     private String modelNumber;
     private boolean rentedFlag;
     //TODO: Unsure if this will work, may need to use another format for timestamps.
-    private DateTimeFormat loanStartTime;
-    private DateTimeFormat loanEndTime;
+    private Date loanStartTime;
+    private Date loanEndTime;
     private String userKey;
 
     public Bike() {
@@ -28,6 +30,9 @@ public class Bike {
         this.bikeID = bikeID;
         this.modelNumber = modelNumber;
         this.rentedFlag = rentedFlag;
+        this.loanStartTime = null;
+        this.loanEndTime = null;
+        this.userKey = null;
     }
 
     public String getModelNumber() {
@@ -46,19 +51,19 @@ public class Bike {
         this.rentedFlag = rentedFlag;
     }
 
-    public DateTimeFormat getLoanStartTime() {
+    public Date getLoanStartTime() {
         return loanStartTime;
     }
 
-    public void setLoanStartTime(DateTimeFormat loanStartTime) {
+    public void Date (Date loanStartTime) {
         this.loanStartTime = loanStartTime;
     }
 
-    public DateTimeFormat getLoanEndTime() {
+    public Date getLoanEndTime() {
         return loanEndTime;
     }
 
-    public void setLoanEndTime(DateTimeFormat loanEndTime) {
+    public void setLoanEndTime(Date loanEndTime) {
         this.loanEndTime = loanEndTime;
     }
 
