@@ -15,6 +15,7 @@ public class Bike {
     //TODO: Unsure if this will work, may need to use another format for timestamps.
     private Date loanStartTime;
     private Date loanEndTime;
+    private String description;
     private String userKey;
 
     public Bike() {
@@ -67,6 +68,10 @@ public class Bike {
         this.loanEndTime = loanEndTime;
     }
 
+    public void setLoanStartTime(Date loanStartTime){
+        this.loanStartTime = loanStartTime;
+    }
+
     public String getUserKey() {
         return userKey;
     }
@@ -85,4 +90,11 @@ public class Bike {
     }
 
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
