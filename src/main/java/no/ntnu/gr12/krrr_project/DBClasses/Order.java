@@ -10,8 +10,7 @@ public class Order {
     private String transactionId;
     private String destination;
     private boolean shippedFlag;
-
-
+    
     public Order() {
     }
 
