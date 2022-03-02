@@ -13,7 +13,6 @@ public class Order {
     private String userKey;
     private String itemKey;
 
-
     public Order(String id, boolean shippedFlag, String destination, float totalPrice, String userKey, String itemKey) {
         this.id = id;
         this.shippedFlag = shippedFlag;
