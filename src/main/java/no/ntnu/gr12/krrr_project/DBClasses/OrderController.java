@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Controller class for the orders. Controls the HTTP requests and parses it from the OrderService class.
@@ -23,8 +26,11 @@ public class OrderController {
      * @return the orders as a list
      */
     @RequestMapping("/orders")
-    public List<Order> getOrder() {
-        return orderService.getOrders();
+    public List<Order> getOrders() {
+        return StreamSupport
+                .stream(orderService.readOrders()
+                        .spliterator(),false)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -34,7 +40,15 @@ public class OrderController {
      */
     @RequestMapping("/orders/{id}")
     public Order getOrder(@PathVariable String id) {
-        return orderService.getOrder(id);
+        Iterator<Order> it = orderService.readOrders().iterator();
+
+        while (it.hasNext()) {
+            Order orderFound = it.next();
+            if (orderFound.getTransactionId().equals(id)) {
+                return orderFound;
+            }
+        }
+        return null;
     }
 
     /**
@@ -49,19 +63,17 @@ public class OrderController {
     /**
      * Updates a specific order with a new order through the mapping.
      * @param order the updated order
-     * @param id the id of the order to be updated
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/orders/{id}")
-    public void updateOrder(@RequestBody Order order, @PathVariable String id) {
-        orderService.updateOrder(id, order);
+    public void updateOrder(@RequestBody Order order) {
+        orderService.updateOrders(order);
     }
 
     /**
      * Deletes a specific order through the mapping
-     * @param id the id of the order to be deleted
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/orders/{id}")
-    public void deleteOrder(@PathVariable String id) {
-        orderService.deleteOrder(id);
+    public void deleteOrder(@PathVariable Order order) {
+        orderService.deleteOrder(order);
     }
 }

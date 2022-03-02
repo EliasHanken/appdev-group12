@@ -3,9 +3,7 @@ package no.ntnu.gr12.krrr_project.DBClasses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.transaction.Transactional;
 
 /**
  * Service class for the orders. Keeps the orders in an organized list and
@@ -16,58 +14,52 @@ public class OrderService {
     @Autowired
     private OrderRepository repository;
 
-    private List<Order> orders = new ArrayList<>(Arrays.asList(
-            new Order("Order 1", false, "Destination 1", 123, "User 1", "Item 1"),
-            new Order("Order 2", false, "Destination 2", 321, "User 2", "Item 2")
-    ));
-
-    /**
-     * Returns the orders as a list
-     * @return the orders as a list
-     */
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    /**
-     * Returns a specific order
-     * @param id the id of the order to be returned
-     * @return the order to be returned
-     */
-    public Order getOrder(String id) {
-        return orders.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
-    }
-
-    /**
-     * Adds an order to the order list
-     * @param order the order to be added
-     */
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
-    //TODO Update with a completely new object, what?
-    /**
-     * Updates an order with a new order object
-     * @param id the id of the order to be updated
-     * @param order the updated order
-     */
-    public void updateOrder(String id, Order order) {
-        for(int i = 0; i < orders.size(); i++) {
-            Order o = orders.get(i);
-            if(o.getId().equals(id)) {
-                orders.set(i, order);
-                //TODO return in if statement?
-                return;
+    @Transactional
+    public String addOrder(Order order) {
+        try {
+            if (!repository.existsById(order.getTransactionId())) {
+                repository.save(order);
+                return "Order created";
+            } else {
+                return "Order is already in the database";
             }
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    /**
-     * Deletes a specific order from the order list
-     * @param id the id of the order to be deleted
-     */
-    public void deleteOrder(String id) {
-        orders.removeIf(b -> b.getId().equals(id));
+    public Iterable<Order> readOrders() {
+        return repository.findAll();
+    }
+
+    @Transactional
+    public String updateOrders(Order order) {
+        if (repository.existsById(order.getTransactionId())) {
+            try {
+                Order orderToUpdate = repository.findById(order.getTransactionId()).get();
+                orderToUpdate.setDestination(order.getDestination());
+                orderToUpdate.setShippedFlag(order.isShippedFlag());
+                repository.save(orderToUpdate);
+                return "Order info updated";
+            } catch (Exception e) {
+                throw e;
+            }
+        } else {
+            return "Order does not exist in DB";
+        }
+    }
+
+    @Transactional
+    public String deleteOrder(Order order) {
+        if (repository.existsById(order.getTransactionId())) {
+            try {
+                repository.delete(order);
+                return "Order has been deleted";
+            } catch (Exception e) {
+                throw e;
+            }
+        } else {
+            return "Order does not exist in DB";
+        }
     }
 }
