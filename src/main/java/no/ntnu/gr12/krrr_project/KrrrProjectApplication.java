@@ -15,7 +15,10 @@ public class KrrrProjectApplication {
     }
 
     public void insertDummyData(BikeRepository repository){
-        repository.save(new Bike("36","54",true));
+        Bike bike = new Bike();
+        bike.setBikeId("50500");
+        bike.setDescription("Unique red bike");
+        repository.save(new Bike());
     }
 
     @Bean
