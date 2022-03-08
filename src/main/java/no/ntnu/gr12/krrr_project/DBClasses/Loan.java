@@ -10,9 +10,9 @@ public class Loan {
     private String id;
 
     @ManyToOne
-    private String userId;
+    private User user;
     @ManyToOne
-    private String bikeId;
+    private Bike bike;
 
     private String borrow_date;
     private String due_date;
@@ -29,19 +29,19 @@ public class Loan {
     }
 
     public String getUserId() {
-        return userId;
+        return user.getUserID();
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.user.setUserID(userId);
     }
 
     public String getBikeId() {
-        return bikeId;
+        return bike.getBikeId();
     }
 
     public void setBikeId(String bikeId) {
-        this.bikeId = bikeId;
+        this.bike.setBikeId(bikeId);
     }
 
     public String getBorrow_date() {

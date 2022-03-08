@@ -2,24 +2,35 @@ package no.ntnu.gr12.krrr_project.DBClasses;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Order {
-    private String itemId;
     @Id
     private String transactionId;
     private String destination;
     private boolean shippedFlag;
+    @OneToMany
+    private List<Item> items = new ArrayList<>();
+    @ManyToOne
+    private User user;
 
     public Order() {
     }
 
-    public String getItemId() {
-        return itemId;
+    public List<Item> getItemId() {
+        return items;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setItemId(String itemId, String newID) {
+        for(Item i : items) {
+            if(i.getItemID().equals(itemId)) {
+                i.setItemID(newID);
+            }
+        }
     }
 
     public boolean isShippedFlag() {
@@ -49,9 +60,10 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "transactionId=" + transactionId +
-                ", itemId=" + itemId +
-                ", destination='" + destination + "\'" +
-                "}";
+                "transactionId='" + transactionId + '\'' +
+                ", destination='" + destination + '\'' +
+                ", shippedFlag=" + shippedFlag +
+                ", items=" + items +
+                '}';
     }
 }
