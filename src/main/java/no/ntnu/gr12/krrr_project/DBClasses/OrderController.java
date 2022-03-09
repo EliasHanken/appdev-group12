@@ -1,10 +1,7 @@
 package no.ntnu.gr12.krrr_project.DBClasses;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.stream.StreamSupport;
  *
  * @author Anders M. H. Frostrud
  */
+@RestController
 public class OrderController {
 
     @Autowired
