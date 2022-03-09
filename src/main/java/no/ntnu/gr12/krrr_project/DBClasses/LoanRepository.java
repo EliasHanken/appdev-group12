@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface LoanRepository extends JpaRepository<Loan, String> {
 
+    /*
     @Query("select loan.bikeId from Loan l")
     public Loan findLoanedBike();
+
+     */
 }

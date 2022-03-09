@@ -1,13 +1,11 @@
 package no.ntnu.gr12.krrr_project.DBClasses;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="orders")
 public class Order {
     @Id
     private String transactionId;
