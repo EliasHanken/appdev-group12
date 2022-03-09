@@ -22,12 +22,24 @@ public class KrrrProjectApplication{
         SpringApplication.run(KrrrProjectApplication.class, args);
     }
 
-    public void insertDummyData(BikeRepository repository){
-        Bike bike = new Bike();
-        bike.setBikeId("50500");
-        bike.setDescription("Unique red bike");
-        repository.save(new Bike());
+    public static void insertDummyData(BikeRepository repository){
+        Bike bike1 = new Bike();
+        bike1.setBikeId("50500");
+        bike1.setDescription("Unique red bike");
+
+        Bike bike2 = new Bike();
+        bike2.setBikeId("123");
+        bike2.setDescription("Very nice green bike");
+
+        Bike bike3 = new Bike();
+        bike3.setBikeId("456");
+        bike3.setDescription("Very ugly pink bike");
+
+        repository.save(bike1);
+        repository.save(bike2);
+        repository.save(bike3);
     }
+
 
 
     /*
