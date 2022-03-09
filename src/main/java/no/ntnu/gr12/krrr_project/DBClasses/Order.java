@@ -2,80 +2,68 @@ package no.ntnu.gr12.krrr_project.DBClasses;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Order {
     @Id
-    private String id;
-    private boolean shippedFlag;
+    private String transactionId;
     private String destination;
-    private float totalPrice;
-    private String userKey;
-    private String itemKey;
-
-    public Order(String id, boolean shippedFlag, String destination, float totalPrice, String userKey, String itemKey) {
-        this.id = id;
-        this.shippedFlag = shippedFlag;
-        this.destination = destination;
-        this.totalPrice = totalPrice;
-        this.userKey = userKey;
-        this.itemKey = itemKey;
-    }
+    private boolean shippedFlag;
+    @OneToMany
+    private List<Item> items = new ArrayList<>();
+    @ManyToOne
+    private User user;
 
     public Order() {
-        this.id = "";
-        this.shippedFlag = false;
-        this.destination = "";
-        this.totalPrice = 0;
-        this.userKey = "";
-        this.itemKey = "";
     }
 
-    public String getId() {
-        return id;
+    public List<Item> getItemId() {
+        return items;
+    }
+
+    public void setItemId(String itemId, String newID) {
+        for(Item i : items) {
+            if(i.getItemID().equals(itemId)) {
+                i.setItemID(newID);
+            }
+        }
     }
 
     public boolean isShippedFlag() {
         return shippedFlag;
     }
 
+    public void setShippedFlag (boolean shipped) {
+        this.shippedFlag = shipped;
+    }
+
     public String getDestination() {
         return destination;
-    }
-
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public String getUserKey() {
-        return userKey;
-    }
-
-    public String getItemKey() {
-        return itemKey;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setShippedFlag(boolean shippedFlag) {
-        this.shippedFlag = shippedFlag;
     }
 
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    public void setUserKey(String userKey) {
-        this.userKey = userKey;
+    public void setTransactionId(String transactionId) {
+        this.setTransactionId(transactionId);
     }
 
-    public void setItemKey(String itemKey) {
-        this.itemKey = itemKey;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "transactionId='" + transactionId + '\'' +
+                ", destination='" + destination + '\'' +
+                ", shippedFlag=" + shippedFlag +
+                ", items=" + items +
+                '}';
     }
 }
