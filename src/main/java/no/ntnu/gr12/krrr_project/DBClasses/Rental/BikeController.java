@@ -1,9 +1,8 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Rental;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;

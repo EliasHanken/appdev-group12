@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Shop;
 
 /**
  * Class containing the textileBag

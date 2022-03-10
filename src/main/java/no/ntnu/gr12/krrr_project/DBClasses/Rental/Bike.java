@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Rental;
 
 import jdk.jshell.execution.Util;
 import org.springframework.format.annotation.DateTimeFormat;

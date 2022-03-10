@@ -1,6 +1,5 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Shop;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

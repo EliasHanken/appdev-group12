@@ -1,12 +1,10 @@
 package no.ntnu.gr12.krrr_project;
 
-import no.ntnu.gr12.krrr_project.DBClasses.Bike;
-import no.ntnu.gr12.krrr_project.DBClasses.BikeRepository;
-import org.springframework.boot.CommandLineRunner;
+import no.ntnu.gr12.krrr_project.DBClasses.Rental.Bike;
+import no.ntnu.gr12.krrr_project.DBClasses.Rental.BikeRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
