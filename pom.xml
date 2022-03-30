@@ -61,7 +61,14 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>/home/ubuntu/website</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>no.ntnu.gr12.krrr_project.KrrrProjectApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <outputDirectory>/home/ubuntu/website/jar_export</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
