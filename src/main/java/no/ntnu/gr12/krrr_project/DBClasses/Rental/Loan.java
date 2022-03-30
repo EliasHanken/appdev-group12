@@ -1,4 +1,6 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Rental;
+
+import no.ntnu.gr12.krrr_project.DBClasses.User;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

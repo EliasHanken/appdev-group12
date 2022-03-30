@@ -1,4 +1,6 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Shop;
+
+import no.ntnu.gr12.krrr_project.DBClasses.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;

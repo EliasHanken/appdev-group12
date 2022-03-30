@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Rental;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class LoanController {
      * Returns the Loan list through the /orders mapping.
      * @return the loans as a list
      */
-    @RequestMapping("/loans")
+    @GetMapping("/loans")
     public List<Loan> getLoans() {
         return StreamSupport
                 .stream(loanService.readLoans()
@@ -30,7 +30,7 @@ public class LoanController {
      * @param id the id of the loan to be requested
      * @return the specific loan
      */
-    @RequestMapping("/loans/{id}")
+    @GetMapping("/loans/{id}")
     public Loan getLoan(@PathVariable String id) {
         Iterator<Loan> it = loanService.readLoans().iterator();
 
@@ -47,7 +47,7 @@ public class LoanController {
      * Adds a loan to the loans list in loanService class through the /loans mapping
      * @param loan the order to be added
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/loans")
+    @PostMapping( "/loans/createLoan")
     public void createLoan(@RequestBody Loan loan) {
         loanService.createLoan(loan);
     }
@@ -56,7 +56,7 @@ public class LoanController {
      * Updates a specific loan with a new loan through the mapping.
      * @param loan the updated order
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "/loans/{id}")
+    @PutMapping("/loans/updateLoan")
     public void updateLoan(@RequestBody Loan loan) {
         loanService.updateLoan(loan);
     }
@@ -64,8 +64,8 @@ public class LoanController {
     /**
      * Deletes a specific loan through the mapping
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "/loans/{id}")
-    public void deleteLoan(@PathVariable Loan loan) {
+    @DeleteMapping("/loans/deleteLoan")
+    public void deleteLoan(@RequestBody Loan loan) {
         loanService.deleteLoan(loan);
     }
 }

@@ -1,9 +1,8 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Rental;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,25 +28,25 @@ public class BikeController {
 
         while(it.hasNext()){
             Bike bikeFound = it.next();
-            if(bikeFound.getBikeId().equals(id)){
+            if(bikeFound.getBikeId().equalsIgnoreCase(id)){
                 return bikeFound;
             }
         }
         return null;
     }
 
-    @PostMapping("/addbike")
+    @PostMapping("/bikes/addBike")
     public void addBike(@RequestBody Bike bike){
         bikeService.createBike(bike);
     }
 
-    @PutMapping("/updatebike/{id}")
+    @PutMapping("bikes/updateBike/")
     public void updateBike(@RequestBody Bike bike){
         bikeService.updateBike(bike);
-    }
+        }
 
-    @DeleteMapping("/deletebike/{id}")
+    @DeleteMapping("bikes/deleteBike")
     public void deleteBike(@RequestBody Bike bike){
-        bikeService.deleteBike(bike);
+                bikeService.deleteBike(bike);
     }
 }

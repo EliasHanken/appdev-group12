@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.DBClasses;
+package no.ntnu.gr12.krrr_project.DBClasses.Shop;
 /**
  * Class for the Helmet that contains it`s price modelNumber and ID
  *
