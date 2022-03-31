@@ -30,7 +30,7 @@ public class UserController {
 
         while(it.hasNext()) {
             User userFound = it.next();
-            if (userFound.getUserID().equals(id)) {
+            if (userFound.getId().equals(id)) {
                 return userFound;
             }
         }

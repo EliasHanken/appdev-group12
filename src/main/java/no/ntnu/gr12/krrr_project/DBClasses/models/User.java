@@ -22,6 +22,16 @@ public class User {
   private Long id;
   private String username;
   private String password;
+  private String description;
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   private boolean active = true;
 
   @ManyToMany(fetch = FetchType.EAGER)

@@ -16,7 +16,7 @@ public class UserService {
     @Transactional
     public String addUser(User user) {
         try {
-            if(!repository.existsById(user.getUserID())) {
+            if(!repository.existsById(user.getId().toString())) {
                 repository.save(user);
                 return "User created";
             } else {
@@ -33,9 +33,9 @@ public class UserService {
 
     @Transactional
     public String updateUsers(User user) {
-        if (repository.existsById(user.getUserID())) {
+        if (repository.existsById(user.getId().toString())) {
             try {
-                User userToUpdate = repository.findById(user.getUserID()).get();
+                User userToUpdate = repository.findById(user.getId().toString()).get();
                 userToUpdate.setDescription(user.getDescription());
                 repository.save(userToUpdate);
                 return "user info updated";
@@ -49,7 +49,7 @@ public class UserService {
 
     @Transactional
     public String deleteUser(User user) {
-        if (repository.existsById(user.getUserID())) {
+        if (repository.existsById(user.getId().toString())) {
             try {
                 repository.delete(user);
                 return "user has been deleted";

@@ -28,12 +28,12 @@ public class Loan {
         this.id = id;
     }
 
-    public String getUserId() {
-        return user.getUserID();
+    public Long getUserId() {
+        return user.getId();
     }
 
-    public void setUserId(String userId) {
-        this.user.setUserID(userId);
+    public void setUserId(Long id) {
+        this.user.setId(id);
     }
 
     public String getBikeId() {
