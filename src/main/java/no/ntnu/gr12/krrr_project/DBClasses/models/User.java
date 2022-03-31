@@ -24,14 +24,6 @@ public class User {
   private String password;
   private String description;
 
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
   private boolean active = true;
 
   @ManyToMany(fetch = FetchType.EAGER)
@@ -91,6 +83,14 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**
