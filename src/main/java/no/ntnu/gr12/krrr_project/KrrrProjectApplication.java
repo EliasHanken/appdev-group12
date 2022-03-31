@@ -1,7 +1,7 @@
 package no.ntnu.gr12.krrr_project;
 
-import no.ntnu.gr12.krrr_project.DBClasses.Rental.Bike;
-import no.ntnu.gr12.krrr_project.DBClasses.Rental.BikeRepository;
+import no.ntnu.gr12.krrr_project.DBClasses.models.Bike;
+import no.ntnu.gr12.krrr_project.DBClasses.repositories.BikeRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
