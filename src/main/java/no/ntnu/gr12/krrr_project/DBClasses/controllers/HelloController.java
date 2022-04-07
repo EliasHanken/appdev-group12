@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class HelloController {
     @GetMapping("")
+    @PreAuthorize("")
     public String home(){
         return "This is a public home page";
     }
