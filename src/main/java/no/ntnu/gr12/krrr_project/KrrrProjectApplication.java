@@ -5,11 +5,7 @@ import no.ntnu.gr12.krrr_project.DBClasses.repositories.BikeRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
+
 
 import java.util.Collections;
 
@@ -19,6 +15,10 @@ public class KrrrProjectApplication{
     public static void main(String[] args) {
         SpringApplication.run(KrrrProjectApplication.class, args);
     }
+
+    /*
+    mvn spring-boot:run
+     */
 
     public static void insertDummyData(BikeRepository repository){
         Bike bike1 = new Bike();
@@ -55,6 +55,7 @@ public class KrrrProjectApplication{
      * Create configuration for Swagger - turn off some Spring-default APIs etc
      * @return Swagger config
      */
+    /*
     @Bean
     public Docket getSwaggerConfiguration() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -81,4 +82,6 @@ public class KrrrProjectApplication{
                 Collections.emptyList()
         );
     }
+
+     */
 }

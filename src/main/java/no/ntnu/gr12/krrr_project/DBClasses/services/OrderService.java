@@ -4,8 +4,8 @@ import no.ntnu.gr12.krrr_project.DBClasses.models.Order;
 import no.ntnu.gr12.krrr_project.DBClasses.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 /**
  * Service class for the orders. Keeps the orders in an organized list and

@@ -4,8 +4,7 @@ import no.ntnu.gr12.krrr_project.DBClasses.models.Loan;
 import no.ntnu.gr12.krrr_project.DBClasses.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service

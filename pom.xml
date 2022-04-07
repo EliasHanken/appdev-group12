@@ -84,8 +84,6 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>no.ntnu.gr12.krrr_project.KrrrProjectApplication</mainClass>
                         </manifest>
                     </archive>
