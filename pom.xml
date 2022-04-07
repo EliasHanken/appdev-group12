@@ -17,6 +17,7 @@
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <start-class>no.ntnu.gr12.krrr_project.KrrrProjectApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
