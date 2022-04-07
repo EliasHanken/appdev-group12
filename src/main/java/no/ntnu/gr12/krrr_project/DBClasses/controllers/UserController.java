@@ -16,6 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //TODO must be fixed, gives an error when accessed.
     @RequestMapping("/users")
     public List<User> getUsers() {
         return StreamSupport
