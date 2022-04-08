@@ -1,0 +1,333 @@
+{
+	"info": {
+		"_postman_id": "df13c63d-3f24-4905-b70c-1a11ea7d8801",
+		"name": "group12-appdev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register endpoint",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Thomas",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://10.212.27.6:8080/register",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login endpoint",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXZlIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjQ5MzM4NjE2LCJleHAiOjE2NDkzNDIyMTZ9.URfo19ub8qe5jx84lmFJlL_5QHAgJxDHwc3CGeR3ht8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"dave\",\r\n    \"password\":\"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.212.27.6:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "dave",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View page accessible for everyone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.212.27.6:8080",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"dave\",\r\n    \"password\":\"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.212.27.6:8080/authenticate",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View user page",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer (Insert JWT token here)",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://10.212.27.6:8080/user",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function parseAuth(err, res) {\r",
+							"pm.collectionVariables.set(\"auth\", res.json().accessToken);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"chuck\",\r\n    \"password\":\"Nunchucks\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.212.27.6:8080/authenticate",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View admin page",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer (Insert)",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://10.212.27.6:8080/admin",
+					"protocol": "http",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8080",
+					"path": [
+						"admin"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"//Supposed to work but somehow dont? Maybe due to a bug in the security logic in the backend.",
+					"",
+					"pm.sendRequest({",
+					"    url: pm.collectionVariables.get(\"auth_url\"),",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/json'",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({\"username\":\"dave\", \"password\":\"user\"})",
+					"    }",
+					"}, (err, res) => pm.collectionVariables.set(\"auth_user\", res.json().accessToken));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_url",
+			"value": "http://10.212.27.6:8080/authenticate",
+			"type": "string"
+		},
+		{
+			"key": "auth_user",
+			"value": ""
+		}
+	]
+}
