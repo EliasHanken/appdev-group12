@@ -29,6 +29,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
     private final Logger logger = LoggerFactory.getLogger("DummyInit");
 
+    //TODO change it up a little?
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         Optional<User> existingChuckUser = userRepository.findByUsername("chuck");
