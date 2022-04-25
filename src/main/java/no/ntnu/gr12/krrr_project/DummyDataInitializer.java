@@ -4,6 +4,7 @@ import no.ntnu.gr12.krrr_project.DBClasses.models.Role;
 import no.ntnu.gr12.krrr_project.DBClasses.models.User;
 import no.ntnu.gr12.krrr_project.DBClasses.repositories.RoleRepository;
 import no.ntnu.gr12.krrr_project.DBClasses.repositories.UserRepository;
+import no.ntnu.gr12.krrr_project.DBClasses.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DummyDataInitializer implements ApplicationListener<ApplicationReadyEvent> {
@@ -20,6 +23,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserService userService;
 
     private final Logger logger = LoggerFactory.getLogger("DummyInit");
 
@@ -43,6 +49,10 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             userRepository.save(dave);
 
             logger.info("DONE importing test data");
+
+            int length = (int) StreamSupport.stream(userService.readUsers().spliterator(), false).count();
+
+            logger.info("Repository length : " + length);
         } else {
             logger.info("Users already in the database, not importing anything");
         }

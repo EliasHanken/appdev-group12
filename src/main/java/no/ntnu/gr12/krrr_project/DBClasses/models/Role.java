@@ -1,5 +1,7 @@
 package no.ntnu.gr12.krrr_project.DBClasses.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -17,6 +19,7 @@ public class Role {
 
   private String name;
 
+  @JsonIgnore
   @ManyToMany(mappedBy ="roles")
   private Set<User> users = new LinkedHashSet<>();
 
