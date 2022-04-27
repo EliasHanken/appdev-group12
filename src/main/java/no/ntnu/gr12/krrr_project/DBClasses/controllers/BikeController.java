@@ -35,11 +35,8 @@ public class BikeController {
 
     @GetMapping("/bikes/{id}")
     public Bike getBike(@PathVariable String id){
-        Iterator<Bike> it = bikeService.readBikes().iterator();
-
-        while(it.hasNext()){
-            Bike bikeFound = it.next();
-            if(bikeFound.getBikeId().equals(Long.valueOf(id))){
+        for (Bike bikeFound : bikeService.readBikes()) {
+            if (bikeFound.getBikeId().equals(id)) {
                 return bikeFound;
             }
         }
