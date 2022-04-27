@@ -15,7 +15,7 @@ public class BikeService {
     @Transactional
     public String createBike(Bike bike){
         try{
-            if(!repository.existsById(bike.getBikeId())){
+            if(!repository.existsById(String.valueOf(bike.getBikeId()))){
                 repository.save(bike);
                 return "Bike inserted!";
             }else{
@@ -32,9 +32,9 @@ public class BikeService {
 
     @Transactional
     public String updateBike(Bike bike){
-        if(repository.existsById(bike.getBikeId())){
+        if(repository.existsById(String.valueOf(bike.getBikeId()))){
             try{
-                Bike bikeToUpdate = repository.findById(bike.getBikeId()).get();
+                Bike bikeToUpdate = repository.findById(String.valueOf(bike.getBikeId())).get();
                 bikeToUpdate.setDescription(bike.getDescription());
                 repository.save(bikeToUpdate);
                 return "Bike info updated";
@@ -48,7 +48,7 @@ public class BikeService {
 
     @Transactional
     public String deleteBike(Bike bike){
-        if(repository.existsById(bike.getBikeId())){
+        if(repository.existsById(String.valueOf(bike.getBikeId()))){
             try{
                 repository.delete(bike);
                 return "Bike is deleted successfully!";

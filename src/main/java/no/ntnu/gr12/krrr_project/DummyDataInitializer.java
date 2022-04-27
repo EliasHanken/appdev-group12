@@ -1,7 +1,10 @@
 package no.ntnu.gr12.krrr_project;
 
+import no.ntnu.gr12.krrr_project.DBClasses.models.Bike;
+import no.ntnu.gr12.krrr_project.DBClasses.models.BikeEnum;
 import no.ntnu.gr12.krrr_project.DBClasses.models.Role;
 import no.ntnu.gr12.krrr_project.DBClasses.models.User;
+import no.ntnu.gr12.krrr_project.DBClasses.repositories.BikeRepository;
 import no.ntnu.gr12.krrr_project.DBClasses.repositories.RoleRepository;
 import no.ntnu.gr12.krrr_project.DBClasses.repositories.UserRepository;
 import no.ntnu.gr12.krrr_project.DBClasses.services.UserService;
@@ -23,6 +26,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private BikeRepository bikeRepository;
 
     @Autowired
     private UserService userService;
@@ -48,6 +54,19 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
             userRepository.save(chuck);
             userRepository.save(dave);
+
+            Bike bike1 = new Bike("1");
+            bike1.setDescription("Unique red bike");
+
+            Bike bike2 = new Bike("2");
+            bike2.setDescription("Very nice green bike");
+
+            Bike bike3 = new Bike(BikeEnum.BIKE_BLUE.getModelIdString());
+            bike3.setDescription("Very ugly pink bike");
+
+            bikeRepository.save(bike1);
+            bikeRepository.save(bike2);
+            bikeRepository.save(bike3);
 
             logger.info("DONE importing test data");
 

@@ -21,16 +21,13 @@ public class KrrrProjectApplication{
      */
 
     public static void insertDummyData(BikeRepository repository){
-        Bike bike1 = new Bike();
-        bike1.setBikeId("50500");
+        Bike bike1 = new Bike("1");
         bike1.setDescription("Unique red bike");
 
-        Bike bike2 = new Bike();
-        bike2.setBikeId("123");
+        Bike bike2 = new Bike("2");
         bike2.setDescription("Very nice green bike");
 
-        Bike bike3 = new Bike();
-        bike3.setBikeId("456");
+        Bike bike3 = new Bike("7");
         bike3.setDescription("Very ugly pink bike");
 
         repository.save(bike1);
