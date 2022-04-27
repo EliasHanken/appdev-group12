@@ -2,7 +2,6 @@ package no.ntnu.gr12.krrr_project.DBClasses.controllers;
 
 import no.ntnu.gr12.krrr_project.DBClasses.services.BikeService;
 import no.ntnu.gr12.krrr_project.DBClasses.models.Bike;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
