@@ -1,12 +1,14 @@
 package no.ntnu.gr12.krrr_project.DBClasses.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -14,6 +16,8 @@ import java.util.function.Function;
 public class JwtUtil {
     @Value("${jwt_secret_key}")
     private String SECRET_KEY;
+    @Value("${cookie}")
+    private String COOKIE;
     /**
      * Key inside JWT token where roles are stored
      */
@@ -48,6 +52,16 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String getJwtFromCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (COOKIE.equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
+
     public Boolean validateToken(String token,UserDetails userDetails){
         final String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
@@ -68,5 +82,27 @@ public class JwtUtil {
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+    }
+
+    public ResponseCookie getCleanJwtCookie(){
+        ResponseCookie cookie = ResponseCookie.from(COOKIE,null).build();
+        return cookie;
+    }
+
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+    }
+    public boolean validateJwtToken(String authToken) {
+        try {
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException
+                | UnsupportedJwtException
+                | IllegalArgumentException
+                | ExpiredJwtException
+                | MalformedJwtException e) {
+            System.out.println((e.getMessage()));
+        }
+        return false;
     }
 }

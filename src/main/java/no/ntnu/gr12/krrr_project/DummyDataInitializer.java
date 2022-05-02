@@ -43,17 +43,20 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             logger.info("Importing test data...");
             User chuck = new User("chuck", "$2a$12$/NoknpFFPDlzL3kBryJfsur0yeYC2JFqAs7Fd79ypMP6PN/mtSYmC");
             User dave = new User("dave", "$2a$10$nwbEjYKgcomq2rjUPge2JegqI.y4zEcNqRMPdqwFnd1ytorNCQM/y");
+            User adminUser = new User("admin","$2a$12$rzYavwqgC5LroICB.jwgZuoUed4XEX.cvvaYX/9r2xdZ06IzcUaWS");
             Role user = new Role("ROLE_USER");
             Role admin = new Role("ROLE_ADMIN");
             chuck.addRole(user);
             chuck.addRole(admin);
             dave.addRole(user);
+            adminUser.addRole(admin);
 
             roleRepository.save(user);
             roleRepository.save(admin);
 
             userRepository.save(chuck);
             userRepository.save(dave);
+            userRepository.save(adminUser);
 
             Bike bike1 = new Bike("1");
             bike1.setDescription("Unique red bike");
