@@ -1,11 +1,11 @@
-package no.ntnu.gr12.krrr_project.DBClasses.security;
+package no.ntnu.gr12.krrr_project.DBClasses.dto;
 
 import java.io.Serializable;
 
 /**
  * Data that the user will send in the login request
  */
-public class AuthenticationRequest implements Serializable {
+public class AuthenticationRequest{
     private String username;
     private String password;
 

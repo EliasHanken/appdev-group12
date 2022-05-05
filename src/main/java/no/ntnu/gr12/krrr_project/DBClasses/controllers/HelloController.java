@@ -17,13 +17,13 @@ public class HelloController {
     }
 
     @GetMapping("user")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String userPage(){
         return "This is accessible to all authorized users";
     }
 
     @GetMapping("admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminPage(){
         return "This is accessible only for ADMIN users";
     }

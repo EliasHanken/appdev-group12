@@ -1,5 +1,7 @@
 package no.ntnu.gr12.krrr_project.DBClasses.controllers;
 
+import no.ntnu.gr12.krrr_project.DBClasses.dto.UserProfileDto;
+import no.ntnu.gr12.krrr_project.DBClasses.services.AccessUserService;
 import no.ntnu.gr12.krrr_project.DBClasses.services.UserService;
 import no.ntnu.gr12.krrr_project.DBClasses.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccessUserService accessUserService;
+
     //TODO must be fixed, gives an error when accessed.
     @GetMapping(value = "/users")
     public ResponseEntity<List<User>> getUsers() {
@@ -33,17 +38,43 @@ public class UserController {
         return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
     }
 
-    @GetMapping("/users/{id}")
-    public User getUser(@PathVariable String id) {
-
-        for (User userFound : userService.readUsers()) {
-            if (userFound.getId().toString().equals(id)) {
-                return userFound;
-            }
+    @GetMapping("/api/users/{username}")
+    public ResponseEntity<?> getProfile(@PathVariable String username) throws InterruptedException {
+        User sessionUser = accessUserService.getSessionUser();
+        if (sessionUser != null && sessionUser.getUsername().equals(username)) {
+            UserProfileDto profile = new UserProfileDto(sessionUser.getDescription());
+            Thread.sleep(2000); // Simulate sleep
+            return new ResponseEntity<>(profile, HttpStatus.OK);
+        } else if (sessionUser == null) {
+            return new ResponseEntity<>("Profile data accessible only to authenticated users", HttpStatus.UNAUTHORIZED);
+        } else {
+            return new ResponseEntity<>("Profile data for other users not accessible!", HttpStatus.FORBIDDEN);
         }
-        return null;
     }
-
+    @PutMapping("/api/users/{username}")
+    public ResponseEntity<String> updateProfile(@PathVariable String username, @RequestBody UserProfileDto profileData) throws InterruptedException {
+        User sessionUser = accessUserService.getSessionUser();
+        ResponseEntity<String> response;
+        if (sessionUser != null && sessionUser.getUsername().equals(username)) {
+            if (profileData != null) {
+                if (accessUserService.updateProfile(sessionUser)) {
+                    Thread.sleep(2000); // Simulate long operation
+                    response = new ResponseEntity<>("", HttpStatus.OK);
+                } else {
+                    response = new ResponseEntity<>("Could not update Profile data", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            } else {
+                response = new ResponseEntity<>("Profile data not supplied", HttpStatus.BAD_REQUEST);
+            }
+        } else if (sessionUser == null) {
+            response = new ResponseEntity<>("Profile data accessible only to authenticated users", HttpStatus.UNAUTHORIZED);
+        } else {
+            response = new ResponseEntity<>("Profile data for other users not accessible!", HttpStatus.FORBIDDEN);
+        }
+        return response;
+    }
+    /**
+     * Not needed
     @PostMapping(value = "/users")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
@@ -56,4 +87,6 @@ public class UserController {
     public void deleteUser(@RequestBody User user) {
         userService.deleteUser(user);
     }
+
+     */
 }

@@ -9,4 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  * Interface for RoleRepository
  */
 public interface RoleRepository extends CrudRepository<Role, Long> {
+    Role findOneByName(String name);
 }
