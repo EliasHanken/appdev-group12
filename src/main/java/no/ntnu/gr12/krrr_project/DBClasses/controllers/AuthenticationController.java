@@ -40,7 +40,7 @@ public class AuthenticationController {
                     authenticationRequest.getPassword()
             ));
         }catch (BadCredentialsException e){
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid username or password" + e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);

@@ -3,6 +3,7 @@ package no.ntnu.gr12.krrr_project.DBClasses.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,53 +21,49 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
+@Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*
-        http.csrf().disable().cors().disable()
-                        .authorizeRequests()
-                        .antMatchers("/register").permitAll()
-                        .antMatchers("/login").permitAll()
-                        .and().sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.cors().and().authorizeRequests()
-                        .anyRequest().authenticated();
-        http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
-         */
-        /*
+
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/register").permitAll()
-                .antMatchers(HttpMethod.POST,"/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST,"/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new AuthenticationFilter(authenticationManager()))
                 .addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-         */
 
+        /*
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/signout").permitAll()
-                .anyRequest().authenticated()
-                .and().sessionManagement()
+                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .and().authorizeRequests().antMatchers("/register").permitAll()
+                .anyRequest().authenticated().and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(new JwtRequestFilterNew(),UsernamePasswordAuthenticationFilter.class);
+
+        http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
+
+         */
     }
 
     @Bean
