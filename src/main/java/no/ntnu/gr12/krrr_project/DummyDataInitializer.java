@@ -41,9 +41,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
         if (existingChuckUser.isEmpty()) {
             logger.info("Importing test data...");
             User chuck = new User("chuck", "$2a$12$/NoknpFFPDlzL3kBryJfsur0yeYC2JFqAs7Fd79ypMP6PN/mtSYmC");
-            chuck.setDescription("I really do love bikes, especially the red shiny ones");
+            chuck.setEmail("I really do love bikes, especially the red shiny ones");
             User dave = new User("dave", "$2a$10$nwbEjYKgcomq2rjUPge2JegqI.y4zEcNqRMPdqwFnd1ytorNCQM/y");
-            dave.setDescription("Hello guys, i like chocolate");
+            dave.setEmail("Hello guys, i like chocolate");
             User adminUser = new User("admin","$2a$12$5DYlTUOKnhStF1BTCeDHIOBWyccWKpBjavkcEuU7LdhGP9nSodjHy");
             Role user = new Role("ROLE_USER");
             Role admin = new Role("ROLE_ADMIN");

@@ -36,7 +36,7 @@ public class UserService {
         if (repository.findByUsername(user.getUsername()).isPresent()) {
             try {
                 User userToUpdate = repository.findByUsername(user.getUsername()).get();
-                userToUpdate.setDescription(user.getDescription());
+                userToUpdate.setEmail((user.getEmail()));
                 repository.save(userToUpdate);
                 return "user info updated";
             } catch (Exception e) {

@@ -3,17 +3,7 @@ package no.ntnu.gr12.krrr_project.models;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -23,7 +13,9 @@ public class User {
   private Long id;
   private String username;
   private String password;
-  private String description;
+  private String email;
+  @OneToOne
+  private ShoppingCart cart;
   private boolean active = true;
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_role",
@@ -42,6 +34,7 @@ public class User {
   public User(String username, String password) {
     this.username = username;
     this.password = password;
+    this.cart = new ShoppingCart();
   }
 
   public Long getId() {
@@ -84,12 +77,12 @@ public class User {
     this.roles = roles;
   }
 
-  public String getDescription() {
-    return description;
+  public String getEmail() {
+    return email;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setEmail(String description) {
+    this.email = description;
   }
 
   public boolean hasRole(String roleName) {
@@ -109,5 +102,9 @@ public class User {
    */
   public void addRole(Role role) {
     roles.add(role);
+  }
+
+  public String getCartID() {
+    return cart.getCartID();
   }
 }

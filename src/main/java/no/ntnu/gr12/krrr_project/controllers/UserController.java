@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.controllers;
+package no.ntnu.gr12.krrr_project.DBClasses.controllers;
 
 import no.ntnu.gr12.krrr_project.dto.UserProfileDto;
 import no.ntnu.gr12.krrr_project.services.AccessUserService;
@@ -39,7 +39,7 @@ public class UserController {
     public ResponseEntity<?> getProfile(@PathVariable String username) throws InterruptedException {
         User sessionUser = accessUserService.getSessionUser();
         if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            UserProfileDto profile = new UserProfileDto(sessionUser.getDescription());
+            UserProfileDto profile = new UserProfileDto(sessionUser.getEmail());
             Thread.sleep(2000); // Simulate sleep
             return new ResponseEntity<>(profile, HttpStatus.OK);
         } else if (sessionUser == null) {
@@ -69,6 +69,17 @@ public class UserController {
             response = new ResponseEntity<>("Profile data for other users not accessible!", HttpStatus.FORBIDDEN);
         }
         return response;
+    }
+
+    @GetMapping("/users/{username}/cartID")
+    public ResponseEntity<String> getCartItems(@PathVariable String username) {
+        User sessionUser = accessUserService.getSessionUser();
+        if (sessionUser != null && sessionUser.getUsername().equals(username)) {
+            return new ResponseEntity<String>(sessionUser.getCartID(), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<String>("Error: cart not found", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     /**
      * Not needed
