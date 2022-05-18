@@ -1,13 +1,9 @@
 package no.ntnu.gr12.krrr_project;
 
-import no.ntnu.gr12.krrr_project.DBClasses.models.Bike;
-import no.ntnu.gr12.krrr_project.DBClasses.repositories.BikeRepository;
+import no.ntnu.gr12.krrr_project.models.Bike;
+import no.ntnu.gr12.krrr_project.repositories.BikeRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-
-import java.util.Collections;
 
 @SpringBootApplication
 public class KrrrProjectApplication{
