@@ -1,6 +1,6 @@
-package no.ntnu.gr12.krrr_project.DBClasses.repositories;
+package no.ntnu.gr12.krrr_project.repositories;
 
-import no.ntnu.gr12.krrr_project.DBClasses.models.Testimonial;
+import no.ntnu.gr12.krrr_project.models.Testimonial;
 import org.springframework.data.repository.CrudRepository;
 
 

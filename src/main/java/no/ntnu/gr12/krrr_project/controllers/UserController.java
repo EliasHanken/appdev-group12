@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.DBClasses.controllers;
+package no.ntnu.gr12.krrr_project.controllers;
 
 import no.ntnu.gr12.krrr_project.dto.UserProfileDto;
 import no.ntnu.gr12.krrr_project.services.AccessUserService;

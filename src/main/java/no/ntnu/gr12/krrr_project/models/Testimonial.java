@@ -1,4 +1,4 @@
-package no.ntnu.gr12.krrr_project.DBClasses.models;
+package no.ntnu.gr12.krrr_project.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
