@@ -1,13 +1,13 @@
 package no.ntnu.gr12.krrr_project;
 
-import no.ntnu.gr12.krrr_project.DBClasses.models.Bike;
-import no.ntnu.gr12.krrr_project.DBClasses.models.BikeEnum;
-import no.ntnu.gr12.krrr_project.DBClasses.models.Role;
-import no.ntnu.gr12.krrr_project.DBClasses.models.User;
-import no.ntnu.gr12.krrr_project.DBClasses.repositories.BikeRepository;
-import no.ntnu.gr12.krrr_project.DBClasses.repositories.RoleRepository;
-import no.ntnu.gr12.krrr_project.DBClasses.repositories.UserRepository;
-import no.ntnu.gr12.krrr_project.DBClasses.services.UserService;
+import no.ntnu.gr12.krrr_project.models.Bike;
+import no.ntnu.gr12.krrr_project.models.BikeEnum;
+import no.ntnu.gr12.krrr_project.models.Role;
+import no.ntnu.gr12.krrr_project.models.User;
+import no.ntnu.gr12.krrr_project.repositories.BikeRepository;
+import no.ntnu.gr12.krrr_project.repositories.RoleRepository;
+import no.ntnu.gr12.krrr_project.repositories.UserRepository;
+import no.ntnu.gr12.krrr_project.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Component
