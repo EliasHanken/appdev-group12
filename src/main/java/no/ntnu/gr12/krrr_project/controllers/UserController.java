@@ -75,7 +75,7 @@ public class UserController {
     public ResponseEntity<String> getCartItems(@PathVariable String username) {
         User sessionUser = accessUserService.getSessionUser();
         if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            return new ResponseEntity<String>(sessionUser.getCartID(), HttpStatus.OK);
+            return new ResponseEntity<String>(sessionUser.getCartID().toString(), HttpStatus.OK);
         }
         else {
             return new ResponseEntity<String>("Error: cart not found", HttpStatus.INTERNAL_SERVER_ERROR);

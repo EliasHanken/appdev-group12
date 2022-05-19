@@ -18,7 +18,7 @@ public class ShoppingCartController {
     private ShoppingCartService cartService;
 
     @GetMapping("/cart/{cartID}/items")
-    public List<Item> getItems(@PathVariable String cartID) {
+    public List<Item> getItems(@PathVariable Long cartID) {
         ShoppingCart cart = new ShoppingCart();
 
         for (ShoppingCart cartFound : cartService.readCarts()) {
@@ -30,7 +30,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/cart/{cartID}/bikes")
-    public List<Bike> getBikes(@PathVariable String cartID) {
+    public List<Bike> getBikes(@PathVariable Long cartID) {
         ShoppingCart cart = new ShoppingCart();
 
         for (ShoppingCart cartFound : cartService.readCarts()) {

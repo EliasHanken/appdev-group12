@@ -15,7 +15,8 @@ public class ShoppingCartService {
     @Transactional
     public String addShoppingCart(ShoppingCart cart) {
         try {
-            if(repository.findById(cart.getCartID()).isEmpty()) {
+            //TODO wonky solution by making ID into toString, but IDK should work?
+            if(repository.findById(cart.getCartID().toString()).isEmpty()) {
                 repository.save(cart);
                 return "Cart is saved";
             } else {
@@ -32,9 +33,9 @@ public class ShoppingCartService {
 
     @Transactional
     public String updateShoppingCart(ShoppingCart cart) {
-        if (repository.findById(cart.getCartID()).isPresent()) {
+        if (repository.findById(cart.getCartID().toString()).isPresent()) {
             try {
-                ShoppingCart cartToUpdate = repository.findById(cart.getCartID()).get();
+                ShoppingCart cartToUpdate = repository.findById(cart.getCartID().toString()).get();
                 cartToUpdate.setCartID(cart.getCartID());
                 return "Cart info is updated";
             } catch (Exception e) {
@@ -47,7 +48,7 @@ public class ShoppingCartService {
 
     @Transactional
     public String deleteShoppingCart(ShoppingCart cart) {
-        if (repository.findById(cart.getCartID()).isPresent()) {
+        if (repository.findById(cart.getCartID().toString()).isPresent()) {
             try {
                 repository.delete(cart);
                 return "Cart has been deleted";

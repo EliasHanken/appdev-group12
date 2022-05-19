@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="shoppingCarts")
 public class ShoppingCart {
     @Id
-    private String cartID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long cartID;
     @OneToMany
     private final List<Item> items;
     @OneToMany
@@ -41,11 +42,11 @@ public class ShoppingCart {
         return bikes;
     }
 
-    public String getCartID() {
+    public Long getCartID() {
         return cartID;
     }
 
-    public void setCartID(String cartID) {
+    public void setCartID(Long cartID) {
         this.cartID = cartID;
     }
 }
