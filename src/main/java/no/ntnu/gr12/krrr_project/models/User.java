@@ -13,6 +13,8 @@ public class User {
   private Long id;
   private String username;
   private String password;
+  private String description;
+  private String name;
   private String email;
   @OneToOne(cascade = {CascadeType.ALL})
   private ShoppingCart cart;
@@ -106,5 +108,21 @@ public class User {
 
   public Long getCartID() {
     return cart.getCartID();
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }
