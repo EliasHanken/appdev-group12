@@ -5,6 +5,9 @@ package no.ntnu.gr12.krrr_project.models;
  */
 public class TextileBag extends Item{
 
+    /**Link to image of product*/
+    private String imgLink;
+
     public TextileBag() {
         super();
     }

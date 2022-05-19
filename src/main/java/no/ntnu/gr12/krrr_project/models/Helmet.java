@@ -6,6 +6,10 @@ package no.ntnu.gr12.krrr_project.models;
  * @version 0.0.1
  */
 public class Helmet extends Item {
+
+    /**Link to image of product*/
+    private String imgLink;
+
     public Helmet() {
         super();
     }
@@ -13,4 +17,5 @@ public class Helmet extends Item {
     public Helmet(String helmetID, String modelNumber, float price) {
         super(helmetID, modelNumber, price);
     }
+
 }

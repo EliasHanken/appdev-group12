@@ -14,6 +14,9 @@ public class Bike {
 
     private String bikeModel;
 
+    /**Link to image of product*/
+    private String imgLink;
+
     public Bike(){
         this.bikeModel = "unknown";
     }
