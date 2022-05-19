@@ -52,6 +52,7 @@ public class Bike {
         return "Bike{" +
                 "id=" + bikeId +
                 ", description='" + description + '\''+
+                ", imgLink='" + imgLink +
                 '}';
     }
 
@@ -62,4 +63,8 @@ public class Bike {
     public void setBikeModel(String bikeModel) {
         this.bikeModel = bikeModel;
     }
+
+    public String getImgLink() { return imgLink; }
+
+    public void setImgLink(String imgLink) { this.imgLink = imgLink; }
 }

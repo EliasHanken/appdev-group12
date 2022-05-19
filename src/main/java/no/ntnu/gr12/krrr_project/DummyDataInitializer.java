@@ -59,8 +59,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             userRepository.save(dave);
             userRepository.save(adminUser);
 
-            Bike bike1 = new Bike("1");
-            bike1.setDescription("Unique red bike");
+            //Bike bike1 = new Bike("1");
+            Bike bike1 = new Bike("1", "", "src/main/resources/red.jpg");
+            bike1.setDescription("Unique red bike!!!");
 
             Bike bike2 = new Bike("2");
             bike2.setDescription("Very nice green bike");
