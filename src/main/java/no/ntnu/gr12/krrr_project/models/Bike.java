@@ -25,6 +25,12 @@ public class Bike {
         this.bikeModel = bikeModel;
     }
 
+    public Bike(String bikeModel, String description, String imgLink) {
+        this.bikeModel = bikeModel;
+        this.description = description;
+        this.imgLink = imgLink;
+    }
+
     public String getBikeId() {
         return String.valueOf(bikeId);
     }

@@ -15,11 +15,20 @@ abstract public class Item {
     private String itemID;
     private String modelNumber;
     private float price;
+    /**Link to image of product*/
+    private String imgLink;
 
     public Item(String itemID, String modelNumber, float price) {
         this.itemID = itemID;
         this.modelNumber = modelNumber;
         this.price = price;
+    }
+
+    public Item(String itemID, String modelNumber, float price, String imgLink) {
+        this.itemID = itemID;
+        this.modelNumber = modelNumber;
+        this.price = price;
+        this.imgLink = imgLink;
     }
 
     public Item() {
