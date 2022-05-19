@@ -15,9 +15,9 @@ public class ShoppingCart {
     @Id
     private String cartID;
     @OneToMany
-    private final ArrayList<Item> items;
+    private final List<Item> items;
     @OneToMany
-    private final ArrayList<Bike> bikes;
+    private final List<Bike> bikes;
     @OneToOne
     private User user;
 
