@@ -1,9 +1,9 @@
 package no.ntnu.gr12.krrr_project.repositories;
 
-import no.ntnu.gr12.krrr_project.models.Product;
+import no.ntnu.gr12.krrr_project.models.Item;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ItemRepository extends CrudRepository<Item, String> {
 }

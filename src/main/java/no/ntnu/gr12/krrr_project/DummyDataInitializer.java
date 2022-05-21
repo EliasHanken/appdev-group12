@@ -1,12 +1,9 @@
 package no.ntnu.gr12.krrr_project;
 
-import no.ntnu.gr12.krrr_project.models.Bike;
-import no.ntnu.gr12.krrr_project.models.BikeEnum;
-import no.ntnu.gr12.krrr_project.models.Role;
-import no.ntnu.gr12.krrr_project.models.User;
-import no.ntnu.gr12.krrr_project.repositories.BikeRepository;
-import no.ntnu.gr12.krrr_project.repositories.RoleRepository;
-import no.ntnu.gr12.krrr_project.repositories.UserRepository;
+import no.ntnu.gr12.krrr_project.models.*;
+import no.ntnu.gr12.krrr_project.repositories.*;
+import no.ntnu.gr12.krrr_project.services.ItemService;
+import no.ntnu.gr12.krrr_project.services.ShoppingCartService;
 import no.ntnu.gr12.krrr_project.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +29,12 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ShoppingCartService cartService;
+
+    @Autowired
+    private ItemService itemService;
+
     private final Logger logger = LoggerFactory.getLogger("DummyInit");
 
     //TODO change it up a little?
@@ -51,9 +54,15 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             chuck.addRole(admin);
             dave.addRole(user);
             adminUser.addRole(admin);
-
             roleRepository.save(user);
             roleRepository.save(admin);
+
+            ShoppingCart testCart = new ShoppingCart();
+            adminUser.addCart(testCart);
+            Helmet testHelmet = new Helmet(123L, "123", 500);
+            itemService.addItem(testHelmet);
+            testCart.addItem(testHelmet);
+            cartService.addShoppingCart(testCart);
 
             userRepository.save(chuck);
             userRepository.save(dave);

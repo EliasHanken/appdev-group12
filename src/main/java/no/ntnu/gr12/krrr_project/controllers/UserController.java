@@ -1,6 +1,7 @@
 package no.ntnu.gr12.krrr_project.controllers;
 
 import no.ntnu.gr12.krrr_project.dto.UserProfileDto;
+import no.ntnu.gr12.krrr_project.models.ShoppingCart;
 import no.ntnu.gr12.krrr_project.services.AccessUserService;
 import no.ntnu.gr12.krrr_project.services.UserService;
 import no.ntnu.gr12.krrr_project.models.User;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+//TODO Really bad, only allowing all origins for testing purposes
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
 
@@ -71,15 +73,14 @@ public class UserController {
         return response;
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/users/{username}/cartID")
     public ResponseEntity<String> getCartItems(@PathVariable String username) {
-        User sessionUser = accessUserService.getSessionUser();
-        if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            return new ResponseEntity<String>(sessionUser.getCartID().toString(), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<String>("Error: cart not found", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        for (User userFound : userService.readUsers()) {
+            if (userFound.getUsername().equalsIgnoreCase(username)) {
+                return new ResponseEntity<String>(userFound.getCartID().toString(), HttpStatus.OK);
+            }
+        } return new ResponseEntity<String>("Error: cart not found", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     /**
      * Not needed

@@ -15,7 +15,7 @@ public class LoanService {
     @Transactional
     public String createLoan(Loan loan){
         try{
-            if(!loanRepository.existsById(loan.getId())){
+            if(!loanRepository.existsById(Long.toString(loan.getId()))){
 
                 loanRepository.save(loan);
                 return "Loan inserted!";
@@ -34,9 +34,9 @@ public class LoanService {
 
     @Transactional
     public String updateLoan(Loan loan){
-        if(loanRepository.existsById(loan.getId())){
+        if(loanRepository.existsById(Long.toString(loan.getId()))){
             try{
-                Loan loanToBeUpdate = loanRepository.findById(loan.getId()).get();
+                Loan loanToBeUpdate = loanRepository.findById(Long.toString(loan.getId())).get();
                 loanToBeUpdate.setBikeId(loan.getBikeId());
                 loanToBeUpdate.setBorrow_date(loan.getBorrow_date());
                 loanToBeUpdate.setDue_date(loan.getDue_date());
@@ -54,7 +54,7 @@ public class LoanService {
 
     @Transactional
     public String deleteLoan(Loan loan){
-        if(loanRepository.existsById(loan.getId())){
+        if(loanRepository.existsById(Long.toString(loan.getId()))){
             try{
                 loanRepository.delete(loan);
                 return "Loan is deleted successfully!";

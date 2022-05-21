@@ -23,9 +23,9 @@ public class Order {
         return items;
     }
 
-    public void setItemId(String itemId, String newID) {
+    public void setItemId(Long itemId, Long newID) {
         for(Item i : items) {
-            if(i.getItemID().equals(itemId)) {
+            if(i.getItemID() == (itemId)) {
                 i.setItemID(newID);
             }
         }

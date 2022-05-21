@@ -13,7 +13,7 @@ import javax.persistence.Id;
 public class Testimonial {
   @Id
   @GeneratedValue
-  private long testimonialId;
+  private Long testimonialId;
 
 
   /**The main text of the testimonial*/

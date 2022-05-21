@@ -14,7 +14,7 @@ public class User {
   private String username;
   private String password;
   private String email;
-  @OneToOne(cascade = {CascadeType.ALL})
+  @OneToOne()
   private ShoppingCart cart;
   private boolean active = true;
   @ManyToMany(fetch = FetchType.EAGER)
@@ -34,7 +34,6 @@ public class User {
   public User(String username, String password) {
     this.username = username;
     this.password = password;
-    this.cart = new ShoppingCart();
   }
 
   public Long getId() {
@@ -106,5 +105,9 @@ public class User {
 
   public Long getCartID() {
     return cart.getCartID();
+  }
+
+  public void addCart(ShoppingCart shoppingCart) {
+    this.cart = shoppingCart;
   }
 }

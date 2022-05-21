@@ -33,12 +33,12 @@ public class LoanController {
      * @return the specific loan
      */
     @GetMapping("/loans/{id}")
-    public Loan getLoan(@PathVariable String id) {
+    public Loan getLoan(@PathVariable Long id) {
         Iterator<Loan> it = loanService.readLoans().iterator();
 
         while (it.hasNext()) {
             Loan loanFound = it.next();
-            if (loanFound.getId().equals(id)) {
+            if (loanFound.getId() == (id)) {
                 return loanFound;
             }
         }
