@@ -1,10 +1,8 @@
 package no.ntnu.gr12.krrr_project;
 
-import no.ntnu.gr12.krrr_project.models.Bike;
-import no.ntnu.gr12.krrr_project.models.BikeEnum;
-import no.ntnu.gr12.krrr_project.models.Role;
-import no.ntnu.gr12.krrr_project.models.User;
+import no.ntnu.gr12.krrr_project.models.*;
 import no.ntnu.gr12.krrr_project.repositories.BikeRepository;
+import no.ntnu.gr12.krrr_project.repositories.OrderRepository;
 import no.ntnu.gr12.krrr_project.repositories.RoleRepository;
 import no.ntnu.gr12.krrr_project.repositories.UserRepository;
 import no.ntnu.gr12.krrr_project.services.UserService;
@@ -28,6 +26,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
     @Autowired
     private BikeRepository bikeRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Autowired
     private UserService userService;
@@ -72,6 +73,19 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             bikeRepository.save(bike1);
             bikeRepository.save(bike2);
             bikeRepository.save(bike3);
+
+            Order order = new Order();
+            order.setDestination("Ålesund");
+            order.setShippedFlag(false);
+            order.setItemId("5","5");
+
+            Order order2 = new Order();
+            order2.setDestination("Skodje");
+            order2.setShippedFlag(false);
+            order2.setItemId("4","2");
+
+            orderRepository.save(order);
+            orderRepository.save(order2);
 
             logger.info("DONE importing test data");
 

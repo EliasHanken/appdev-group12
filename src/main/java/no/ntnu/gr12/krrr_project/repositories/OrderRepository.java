@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
  * Repository interface class that extends from the CrudRepository interface.
  * @author Anders M. H. Frostrud
  */
-public interface OrderRepository extends CrudRepository<Order, String> {
+public interface OrderRepository extends CrudRepository<Order, Long> {
 
 }

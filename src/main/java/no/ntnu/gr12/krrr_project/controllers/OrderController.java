@@ -15,6 +15,7 @@ import java.util.stream.StreamSupport;
  *
  * @author Anders M. H. Frostrud
  */
+@CrossOrigin
 @RestController
 public class OrderController {
 
@@ -25,7 +26,7 @@ public class OrderController {
      * Returns the Order list through the /orders mapping.
      * @return the orders as a list
      */
-    @RequestMapping("/orders")
+    @RequestMapping("api/orders")
     public List<Order> getOrders() {
         return StreamSupport
                 .stream(orderService.readOrders()
@@ -38,7 +39,7 @@ public class OrderController {
      * @param id the id of the order to be requested
      * @return the specific order
      */
-    @RequestMapping("/orders/{id}")
+    @RequestMapping("api/orders/{id}")
     public Order getOrder(@PathVariable String id) {
         Iterator<Order> it = orderService.readOrders().iterator();
 
@@ -55,7 +56,7 @@ public class OrderController {
      * Adds an order to the order list in orderService class through the /orders mapping
      * @param order the order to be added
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/orders")
+    @RequestMapping(method = RequestMethod.POST, value = "api/orders")
     public void addOrder(@RequestBody Order order) {
         orderService.addOrder(order);
     }
@@ -64,7 +65,7 @@ public class OrderController {
      * Updates a specific order with a new order through the mapping.
      * @param order the updated order
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "/orders/{id}")
+    @RequestMapping(method = RequestMethod.PUT, value = "api/orders/{id}")
     public void updateOrder(@RequestBody Order order) {
         orderService.updateOrders(order);
     }
@@ -72,7 +73,7 @@ public class OrderController {
     /**
      * Deletes a specific order through the mapping
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "/orders/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "api/orders/{id}")
     public void deleteOrder(@PathVariable Order order) {
         orderService.deleteOrder(order);
     }

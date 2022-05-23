@@ -8,7 +8,8 @@ import java.util.List;
 @Table(name="orders")
 public class Order {
     @Id
-    private String transactionId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long transactionId;
     private String destination;
     private boolean shippedFlag;
     @OneToMany
@@ -47,12 +48,8 @@ public class Order {
         this.destination = destination;
     }
 
-    public String getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.setTransactionId(transactionId);
     }
 
     @Override
