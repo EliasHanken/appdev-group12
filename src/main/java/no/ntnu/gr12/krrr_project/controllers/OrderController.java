@@ -74,7 +74,8 @@ public class OrderController {
      * Deletes a specific order through the mapping
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "api/orders/{id}")
-    public void deleteOrder(@PathVariable Long transactionId) {
-        orderService.deleteOrder(transactionId);
+    public void deleteOrder(@PathVariable String id) {
+        Long longTransactionId = Long.valueOf(id);
+        orderService.deleteOrder(longTransactionId);
     }
 }
