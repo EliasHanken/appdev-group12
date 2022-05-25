@@ -12,8 +12,6 @@ public class HelmetService {
      * Creates two helmet objects for testing purposes.
      */
     private List<Helmet> helmets = new ArrayList<>(Arrays.asList(
-            new Helmet("002001", "201", 200),
-            new Helmet("002002", "202", 250)
     ));
 
     /**
@@ -28,7 +26,7 @@ public class HelmetService {
      * @param id the ID of the helmet that should be returned.
      * @return The helmet with the corresponding ID.
      */
-    public Helmet getHelmet(String id){
+    public Helmet getHelmet(Long id){
         return helmets.stream().filter(e -> e.getItemID().equals(id)).findFirst().orElse(null);
     }
 
@@ -45,7 +43,7 @@ public class HelmetService {
      * @param id
      * @param helmet
      */
-    public void updateHelmet(String id, Helmet helmet){
+    public void updateHelmet(Long id, Helmet helmet){
         for(int i = 0; i < helmets.size(); i++){
             Helmet h = helmets.get(i);
             if(h.getItemID().equals(id)){
@@ -59,7 +57,7 @@ public class HelmetService {
      * Deletes helmet with corresponding id from helmets.
      * @param id The ID of the helmet to be deleted.
      */
-    public void deleteHelmet(String id){
+    public void deleteHelmet(Long id){
         helmets.removeIf(h -> h.getItemID().equals(id));
     }
 

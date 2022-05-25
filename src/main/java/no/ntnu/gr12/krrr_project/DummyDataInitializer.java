@@ -1,10 +1,9 @@
 package no.ntnu.gr12.krrr_project;
 
 import no.ntnu.gr12.krrr_project.models.*;
-import no.ntnu.gr12.krrr_project.repositories.BikeRepository;
-import no.ntnu.gr12.krrr_project.repositories.OrderRepository;
-import no.ntnu.gr12.krrr_project.repositories.RoleRepository;
-import no.ntnu.gr12.krrr_project.repositories.UserRepository;
+import no.ntnu.gr12.krrr_project.repositories.*;
+import no.ntnu.gr12.krrr_project.services.ItemService;
+import no.ntnu.gr12.krrr_project.services.ShoppingCartService;
 import no.ntnu.gr12.krrr_project.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +32,15 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ShoppingCartService cartService;
+
+    @Autowired
+    private ShoppingCartRepository cartRepository;
+
+    @Autowired
+    private ItemService itemService;
+
     private final Logger logger = LoggerFactory.getLogger("DummyInit");
 
     //TODO change it up a little?
@@ -53,6 +61,12 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             dave.addRole(user);
             adminUser.addRole(admin);
 
+            ShoppingCart testCart = new ShoppingCart();
+            testCart.setUser(dave);
+
+            dave.setCart(testCart);
+
+
             roleRepository.save(user);
             roleRepository.save(admin);
 
@@ -60,6 +74,14 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             userRepository.save(dave);
             userRepository.save(adminUser);
 
+            cartRepository.save(testCart);
+
+            Helmet testHelmet = new Helmet();
+            testHelmet.setItemID(201L);
+
+            itemService.addItem(testHelmet);
+            testCart.addItem(testHelmet);
+            cartRepository.save(testCart);
             //Bike bike1 = new Bike("1");
             Bike bike1 = new Bike("1", "", "src/main/resources/red.jpg");
             bike1.setDescription("Unique red bike!!!");
@@ -77,17 +99,17 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             Order order = new Order();
             order.setDestination("Ålesund");
             order.setShippedFlag(false);
-            order.setItemId("5","5");
+            order.setItemId(5L,5L);
 
             Order order2 = new Order();
             order2.setDestination("Skodje");
             order2.setShippedFlag(false);
-            order2.setItemId("4","2");
+            order2.setItemId(4L,2L);
 
             Order order3 = new Order();
             order3.setDestination("USA");
             order3.setShippedFlag(true);
-            order3.setItemId("6","1");
+            order3.setItemId(6L,1L);
 
             orderRepository.save(order);
             orderRepository.save(order2);

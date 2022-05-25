@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
 @RestController
 public class UserController {
 
@@ -74,13 +74,12 @@ public class UserController {
 
     @GetMapping("/users/{username}/cartID")
     public ResponseEntity<String> getCartItems(@PathVariable String username) {
-        User sessionUser = accessUserService.getSessionUser();
-        if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            return new ResponseEntity<String>(sessionUser.getCartID().toString(), HttpStatus.OK);
+        for(User u: userService.readUsers()) {
+            if (u != null && u.getUsername().equals(username)) {
+                return new ResponseEntity<String>(Long.toString(u.getCart().getCartID()), HttpStatus.OK);
+            }
         }
-        else {
-            return new ResponseEntity<String>("Error: cart not found", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<String>("Error: cart not found", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     /**
      * Not needed

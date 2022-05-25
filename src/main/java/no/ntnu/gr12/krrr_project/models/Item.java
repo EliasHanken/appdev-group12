@@ -1,7 +1,6 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Abstract class that contains all the items sold in the website for the database
@@ -10,22 +9,25 @@ import javax.persistence.Id;
  * @version 0.0.1
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 abstract public class Item {
+
     @Id
-    private String itemID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long itemID;
     private String modelNumber;
     private float price;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ShoppingCart cart;
     /**Link to image of product*/
     private String imgLink;
 
-    public Item(String itemID, String modelNumber, float price) {
-        this.itemID = itemID;
+    public Item(String modelNumber, float price) {
         this.modelNumber = modelNumber;
         this.price = price;
     }
 
-    public Item(String itemID, String modelNumber, float price, String imgLink) {
-        this.itemID = itemID;
+    public Item(String modelNumber, float price, String imgLink) {
         this.modelNumber = modelNumber;
         this.price = price;
         this.imgLink = imgLink;
@@ -36,11 +38,11 @@ abstract public class Item {
 
 
     @Id
-    public String getItemID() {
+    public Long getItemID() {
         return itemID;
     }
 
-    public void setItemID(String itemID) {
+    public void setItemID(Long itemID) {
         this.itemID = itemID;
     }
 

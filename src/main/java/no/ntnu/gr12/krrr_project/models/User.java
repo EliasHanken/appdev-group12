@@ -36,7 +36,6 @@ public class User {
   public User(String username, String password) {
     this.username = username;
     this.password = password;
-    this.cart = new ShoppingCart();
   }
 
   public Long getId() {
@@ -108,6 +107,14 @@ public class User {
 
   public Long getCartID() {
     return cart.getCartID();
+  }
+
+  public void setCart(ShoppingCart cart) {
+    this.cart = cart;
+  }
+
+  public ShoppingCart getCart() {
+    return this.cart;
   }
 
   public String getDescription() {

@@ -1,14 +1,13 @@
 package no.ntnu.gr12.krrr_project.controllers;
 
 import no.ntnu.gr12.krrr_project.models.Bike;
+import no.ntnu.gr12.krrr_project.models.Helmet;
 import no.ntnu.gr12.krrr_project.models.Item;
 import no.ntnu.gr12.krrr_project.models.ShoppingCart;
+import no.ntnu.gr12.krrr_project.services.ItemService;
 import no.ntnu.gr12.krrr_project.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +17,8 @@ public class ShoppingCartController {
 
     @Autowired
     private ShoppingCartService cartService;
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping("/cart/{cartID}/items")
     public List<Item> getItems(@PathVariable Long cartID) {
@@ -41,6 +42,19 @@ public class ShoppingCartController {
             }
         }
         return cart.getBikes();
+    }
+
+    @PutMapping("/cart/{cartID}/addItem")
+    public void addHelmet(@PathVariable Long cartID, @RequestBody Helmet helmet) {
+        Helmet itemToBeAdded = new Helmet(helmet.getModelNumber(), helmet.getPrice());
+        itemToBeAdded.setItemID(helmet.getItemID());
+        itemService.addItem(itemToBeAdded);
+        for (ShoppingCart cartFound : cartService.readCarts()) {
+            if (cartFound.getCartID().equals(cartID)) {
+                cartFound.addItem(itemToBeAdded);
+                cartService.updateShoppingCart(cartFound);
+            }
+        }
     }
 
 }
