@@ -84,8 +84,14 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             order2.setShippedFlag(false);
             order2.setItemId("4","2");
 
+            Order order3 = new Order();
+            order3.setDestination("USA");
+            order3.setShippedFlag(true);
+            order3.setItemId("6","1");
+
             orderRepository.save(order);
             orderRepository.save(order2);
+            orderRepository.save(order3);
 
             logger.info("DONE importing test data");
 

@@ -52,10 +52,10 @@ public class OrderService {
     }
 
     @Transactional
-    public String deleteOrder(Order order) {
-        if (repository.existsById(order.getTransactionId())) {
+    public String deleteOrder(Long transactionId) {
+        if (repository.existsById(transactionId)) {
             try {
-                repository.delete(order);
+                repository.deleteById(transactionId);
                 return "Order has been deleted";
             } catch (Exception e) {
                 throw e;
