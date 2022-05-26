@@ -25,11 +25,15 @@ public class Order {
     }
 
     public void setItemId(Long itemId, Long newID) {
-        for(Item i : items) {
-            if(i.getItemID().equals(itemId)) {
-                i.setItemID(newID);
-            }
-        }
+
+    }
+
+    public void addItem(Item obj){
+        items.add(obj);
+    }
+
+    public void addProduct(Object obj){
+
     }
 
     public boolean isShippedFlag() {

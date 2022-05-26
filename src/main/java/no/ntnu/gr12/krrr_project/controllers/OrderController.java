@@ -1,5 +1,7 @@
 package no.ntnu.gr12.krrr_project.controllers;
 
+import no.ntnu.gr12.krrr_project.dto.OrderUpdateRequest;
+import no.ntnu.gr12.krrr_project.repositories.OrderRepository;
 import no.ntnu.gr12.krrr_project.services.OrderService;
 import no.ntnu.gr12.krrr_project.models.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -15,12 +18,15 @@ import java.util.stream.StreamSupport;
  *
  * @author Anders M. H. Frostrud
  */
-@CrossOrigin
+@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 @RestController
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     /**
      * Returns the Order list through the /orders mapping.
@@ -61,13 +67,10 @@ public class OrderController {
         orderService.addOrder(order);
     }
 
-    /**
-     * Updates a specific order with a new order through the mapping.
-     * @param order the updated order
-     */
+
     @RequestMapping(method = RequestMethod.PUT, value = "api/orders/{id}")
-    public void updateOrder(@RequestBody Order order) {
-        orderService.updateOrders(order);
+    public void updateOrder(@RequestBody OrderUpdateRequest orderUpdateRequest) {
+        orderService.updateOrders(Long.valueOf(orderUpdateRequest.getId()),orderUpdateRequest.getDestination(),Boolean.parseBoolean(orderUpdateRequest.getShippedFlag()));
     }
 
     /**
