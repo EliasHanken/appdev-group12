@@ -1,7 +1,6 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
 /**
  * Class for the Helmet that contains it`s price modelNumber and ID
@@ -10,7 +9,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
  * @version 0.0.1
  */
 @Entity
-@PrimaryKeyJoinColumn(name = "helmetID")
 public class Helmet extends Item {
 
     public Helmet() {

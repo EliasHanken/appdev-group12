@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -72,7 +72,7 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/users/{username}/cartID")
+    @GetMapping("/api/users/{username}/cartID")
     public ResponseEntity<String> getCartItems(@PathVariable String username) {
         for(User u: userService.readUsers()) {
             if (u != null && u.getUsername().equals(username)) {

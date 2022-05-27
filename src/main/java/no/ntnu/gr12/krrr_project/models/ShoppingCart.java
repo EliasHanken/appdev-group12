@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.GenerationType.AUTO;
+
 /**
  * A class that holds all items that are kept in a customer shopping cart
  * @author Anders M. H. Frostrud
@@ -13,7 +15,7 @@ import java.util.List;
 @Table(name="shoppingCarts")
 public class ShoppingCart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = AUTO)
     private Long cartID;
     @OneToMany
     private final List<Item> items;

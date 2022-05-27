@@ -1,13 +1,11 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
 /**
  * Class containing the textileBag
  */
 @Entity
-@PrimaryKeyJoinColumn(name = "bagID")
 public class TextileBag extends Item{
 
     public TextileBag() {

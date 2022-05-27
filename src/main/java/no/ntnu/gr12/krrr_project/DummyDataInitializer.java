@@ -38,9 +38,6 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     @Autowired
     private ShoppingCartRepository cartRepository;
 
-    @Autowired
-    private ItemService itemService;
-
     private final Logger logger = LoggerFactory.getLogger("DummyInit");
 
     //TODO change it up a little?
@@ -75,12 +72,6 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             userRepository.save(adminUser);
 
             cartRepository.save(testCart);
-
-            Helmet testHelmet = new Helmet();
-            testHelmet.setItemID(201L);
-
-            itemService.addItem(testHelmet);
-            testCart.addItem(testHelmet);
             cartRepository.save(testCart);
             //Bike bike1 = new Bike("1");
             Bike bike1 = new Bike("1", "", "src/main/resources/red.jpg");

@@ -9,12 +9,14 @@ import javax.persistence.*;
  * @version 0.0.1
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "itemGenerator", initialValue = 2000, allocationSize = 1)
+    @GeneratedValue(generator = "itemGenerator")
     private Long itemID;
+
     private String modelNumber;
     private float price;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -36,16 +38,6 @@ abstract public class Item {
     public Item() {
     }
 
-
-    @Id
-    public Long getItemID() {
-        return itemID;
-    }
-
-    public void setItemID(Long itemID) {
-        this.itemID = itemID;
-    }
-
     public String getModelNumber() {
         return modelNumber;
     }
@@ -60,5 +52,13 @@ abstract public class Item {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public Long getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(Long itemID) {
+        this.itemID = itemID;
     }
 }
