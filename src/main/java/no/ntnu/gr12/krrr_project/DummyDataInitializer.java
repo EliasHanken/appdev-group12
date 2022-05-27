@@ -30,6 +30,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     private OrderRepository orderRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -87,24 +90,35 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             bikeRepository.save(bike2);
             bikeRepository.save(bike3);
 
+            Helmet testHelmet2 = new Helmet();
+            testHelmet2.setItemID(202L);
+
+            itemService.addItem(testHelmet2);
+
             Order order = new Order();
+            order.addItem(testHelmet2);
             order.setDestination("Ålesund");
             order.setShippedFlag(false);
-            order.setItemId(5L,5L);
 
             Order order2 = new Order();
             order2.setDestination("Skodje");
             order2.setShippedFlag(false);
-            order2.setItemId(4L,2L);
 
             Order order3 = new Order();
             order3.setDestination("USA");
             order3.setShippedFlag(true);
-            order3.setItemId(6L,1L);
 
             orderRepository.save(order);
             orderRepository.save(order2);
             orderRepository.save(order3);
+
+            Product product1 = new Product("Canvas Bag", 100);
+            Product product2 = new Product("Borsalino helmet", 150);
+            Product product3 = new Product("Chalk", 250);
+
+            productRepository.save(product1);
+            productRepository.save(product2);
+            productRepository.save(product3);
 
             logger.info("DONE importing test data");
 

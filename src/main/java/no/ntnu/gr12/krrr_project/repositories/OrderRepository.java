@@ -8,5 +8,4 @@ import org.springframework.data.repository.CrudRepository;
  * @author Anders M. H. Frostrud
  */
 public interface OrderRepository extends CrudRepository<Order, Long> {
-
 }

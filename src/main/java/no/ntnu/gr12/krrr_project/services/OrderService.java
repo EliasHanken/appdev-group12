@@ -1,7 +1,9 @@
 package no.ntnu.gr12.krrr_project.services;
 
 import no.ntnu.gr12.krrr_project.models.Order;
+import no.ntnu.gr12.krrr_project.models.ShoppingCart;
 import no.ntnu.gr12.krrr_project.repositories.OrderRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,14 +37,13 @@ public class OrderService {
     }
 
     @Transactional
-    public String updateOrders(Order order) {
-        if (repository.existsById(order.getTransactionId())) {
+    public String updateOrders(Long id,String newDest, boolean newFlag) {
+        if (repository.findById(id).isPresent()) {
             try {
-                Order orderToUpdate = repository.findById(order.getTransactionId()).get();
-                orderToUpdate.setDestination(order.getDestination());
-                orderToUpdate.setShippedFlag(order.isShippedFlag());
-                repository.save(orderToUpdate);
-                return "Order info updated";
+                Order orderToUpdate = repository.findById(id).get();
+                orderToUpdate.setDestination(newDest);
+                orderToUpdate.setShippedFlag(newFlag);
+                return "Order info is updated";
             } catch (Exception e) {
                 throw e;
             }
