@@ -16,13 +16,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@CrossOrigin
 @RestController
 public class BikeController {
 
     @Autowired
     private BikeService bikeService;
 
-    @CrossOrigin(origins = "http://localhost:63343/")
     @GetMapping("/bikes")
     public List<Bike> getBikes(){
         return StreamSupport
@@ -31,7 +31,6 @@ public class BikeController {
                         .collect(Collectors.toList());
     }
 
-    @CrossOrigin(origins = "http://localhost:63343/")
     @GetMapping("/bikes/{id}")
     public Bike getBike(@PathVariable String id){
         for (Bike bikeFound : bikeService.readBikes()) {

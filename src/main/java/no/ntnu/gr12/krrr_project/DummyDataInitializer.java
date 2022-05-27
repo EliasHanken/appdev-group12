@@ -30,6 +30,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     private OrderRepository orderRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -117,6 +120,14 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             orderRepository.save(order);
             orderRepository.save(order2);
             orderRepository.save(order3);
+
+            Product product1 = new Product("Canvas Bag", 100);
+            Product product2 = new Product("Borsalino helmet", 150);
+            Product product3 = new Product("Chalk", 250);
+
+            productRepository.save(product1);
+            productRepository.save(product2);
+            productRepository.save(product3);
 
             logger.info("DONE importing test data");
 
