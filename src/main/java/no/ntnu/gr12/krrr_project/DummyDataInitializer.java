@@ -41,6 +41,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     @Autowired
     private ShoppingCartRepository cartRepository;
 
+    @Autowired
+    private ItemService itemService;
+
     private final Logger logger = LoggerFactory.getLogger("DummyInit");
 
     //TODO change it up a little?
