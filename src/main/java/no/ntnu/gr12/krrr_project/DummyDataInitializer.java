@@ -94,10 +94,9 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             bikeRepository.save(bike3);
 
             Helmet testHelmet2 = new Helmet();
-            testHelmet2.setItemID(202L);
 
             itemService.addItem(testHelmet2);
-
+            testCart.addItem(testHelmet2);
             Order order = new Order();
             order.addItem(testHelmet2);
             order.setDestination("Ålesund");

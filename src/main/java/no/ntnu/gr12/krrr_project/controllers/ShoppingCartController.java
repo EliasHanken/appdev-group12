@@ -68,4 +68,10 @@ public class ShoppingCartController {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @PutMapping("api/cart/{cartID}/emptyCart")
+    public void emptyCart(@PathVariable Long cartID) {
+        cartService.emptyShoppingCart(cartID);
+    }
+
 }

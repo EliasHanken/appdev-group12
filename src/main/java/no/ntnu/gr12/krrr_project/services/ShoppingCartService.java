@@ -59,4 +59,20 @@ public class ShoppingCartService {
             return "Cart does not exist in DB";
         }
     }
+
+    @Transactional
+    public String emptyShoppingCart(Long id) {
+        if (repository.findById(id).isPresent()) {
+            try {
+                if(repository.findById(id).get().emptyCart()) {
+                    return "Cart has been been emptied";
+                }
+                else return "Cart is already empty";
+            } catch (Exception e) {
+                throw e;
+            }
+        } else {
+            return "Cart does not exist in DB";
+        }
+    }
 }
