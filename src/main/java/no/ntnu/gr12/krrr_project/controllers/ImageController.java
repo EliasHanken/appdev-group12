@@ -1,10 +1,14 @@
 package no.ntnu.gr12.krrr_project.controllers;
 
+import io.swagger.models.Response;
 import no.ntnu.gr12.krrr_project.models.Image;
 import no.ntnu.gr12.krrr_project.services.ImageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @CrossOrigin
 public class ImageController {
+
+  Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
   @Autowired
   ImageService imgService;
@@ -42,8 +48,10 @@ public class ImageController {
    * @param id ID of the image to locate
    * @return Image content and correct content type, or NOT FOUND.
    */
-  @GetMapping("/iamges/{id}")
+  @GetMapping(value = "/api/images/{id}",
+  produces = MediaType.IMAGE_JPEG_VALUE)
   public ResponseEntity<byte[]> get(@PathVariable Integer id) {
+    logger.info("Calling ImageController.GetMapping() with id: " + id);
     ResponseEntity<byte[]> response;
     Image img = imgService.getImageByID(id);
     if(img != null) {
@@ -53,6 +61,7 @@ public class ImageController {
     } else {
       response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+    logger.info(response.toString());
     return response;
   }
 
