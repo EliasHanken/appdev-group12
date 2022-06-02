@@ -81,8 +81,6 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
             cartRepository.save(testCart);
             cartRepository.save(testCart);
-            //Bike bike1 = new Bike("1");
-            Bike bike1 = new Bike("1", "", "src/main/resources/red.jpg");
 
 
             Utils imageDataConverter = new Utils();
