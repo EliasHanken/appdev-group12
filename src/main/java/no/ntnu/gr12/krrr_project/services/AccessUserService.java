@@ -1,5 +1,6 @@
 package no.ntnu.gr12.krrr_project.services;
 
+import no.ntnu.gr12.krrr_project.dto.UserProfileDto;
 import no.ntnu.gr12.krrr_project.models.Role;
 import no.ntnu.gr12.krrr_project.models.User;
 import no.ntnu.gr12.krrr_project.repositories.RoleRepository;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -131,8 +133,25 @@ public class AccessUserService implements UserDetailsService {
      * @param user User to update
      * @return True on success, false otherwise
      */
-    public boolean updateProfile(User user) {
+    @Transactional
+    public boolean updateProfile(User user, UserProfileDto profileData) {
+        user.setBio(profileData.getBio());
         userRepository.save(user);
         return true;
+    }
+
+    @Transactional
+    public boolean updateBio(String username, String newBio) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            try {
+                User userToUpdate = userRepository.findByUsername(username).get();
+                userToUpdate.setBio(newBio);
+                return true;
+            } catch (Exception e) {
+                throw e;
+            }
+        } else {
+            return false;
+        }
     }
 }
