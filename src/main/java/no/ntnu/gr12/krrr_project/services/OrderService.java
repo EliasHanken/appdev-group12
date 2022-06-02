@@ -19,13 +19,14 @@ public class OrderService {
     private OrderRepository repository;
 
     @Transactional
-    public String addOrder(Order order) {
+    public boolean addOrder(Order order) {
+        Order newOrder = new Order();
         try {
             if (!repository.existsById(order.getTransactionId())) {
                 repository.save(order);
-                return "Order created";
+                return true;
             } else {
-                return "Order is already in the database";
+                return false;
             }
         } catch (Exception e) {
             throw e;

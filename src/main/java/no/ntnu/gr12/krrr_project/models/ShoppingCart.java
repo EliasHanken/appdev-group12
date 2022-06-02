@@ -2,6 +2,7 @@ package no.ntnu.gr12.krrr_project.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static javax.persistence.GenerationType.AUTO;
@@ -58,5 +59,22 @@ public class ShoppingCart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean emptyCart() {
+        if(items.isEmpty() && bikes.isEmpty()) {
+            return false;
+        }
+        else {
+            Iterator<Item> itemIterator = items.iterator();
+            while(itemIterator.hasNext()) {
+                itemIterator.remove();
+            }
+            Iterator<Bike> bikeIterator = bikes.iterator();
+            while(itemIterator.hasNext()) {
+                itemIterator.remove();
+            }
+            return true;
+        }
     }
 }

@@ -5,6 +5,9 @@ import no.ntnu.gr12.krrr_project.repositories.OrderRepository;
 import no.ntnu.gr12.krrr_project.services.OrderService;
 import no.ntnu.gr12.krrr_project.models.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
@@ -18,6 +21,7 @@ import java.util.stream.StreamSupport;
  *
  * @author Anders M. H. Frostrud
  */
+//TODO Move most of logic from methods to service classes
 @CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 @RestController
 public class OrderController {
@@ -62,9 +66,13 @@ public class OrderController {
      * Adds an order to the order list in orderService class through the /orders mapping
      * @param order the order to be added
      */
-    @RequestMapping(method = RequestMethod.POST, value = "api/orders")
-    public void addOrder(@RequestBody Order order) {
-        orderService.addOrder(order);
+    @RequestMapping(method = RequestMethod.POST, value = "api/orders/new")
+    public ResponseEntity<String> addOrder(@RequestBody Order order) {
+        if(orderService.addOrder(order)) {
+            return new ResponseEntity<String>("Order successfully created", HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity<String>("Order not added, something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

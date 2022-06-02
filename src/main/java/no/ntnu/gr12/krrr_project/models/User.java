@@ -13,7 +13,7 @@ public class User {
   private Long id;
   private String username;
   private String password;
-  private String description;
+  private String bio;
   private String name;
   private String email;
   @OneToOne(cascade = {CascadeType.ALL})
@@ -36,6 +36,7 @@ public class User {
   public User(String username, String password) {
     this.username = username;
     this.password = password;
+    this.cart = new ShoppingCart();
   }
 
   public Long getId() {
@@ -117,12 +118,12 @@ public class User {
     return this.cart;
   }
 
-  public String getDescription() {
-    return description;
+  public String getBio() {
+    return bio;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setBio(String bio) {
+    this.bio = bio;
   }
 
   public String getName() {
