@@ -67,7 +67,7 @@ public class OrderController {
      * @param order the order to be added
      */
     @RequestMapping(method = RequestMethod.POST, value = "api/orders/new")
-    public ResponseEntity<String> addOrder(@RequestBody String user, @RequestBody String ) {
+    public ResponseEntity<String> addOrder(Order order) {
         if(orderService.addOrder(order)) {
             return new ResponseEntity<String>("Order successfully created", HttpStatus.ACCEPTED);
         } else {
