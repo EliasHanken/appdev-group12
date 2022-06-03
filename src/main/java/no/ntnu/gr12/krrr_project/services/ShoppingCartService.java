@@ -1,16 +1,21 @@
 package no.ntnu.gr12.krrr_project.services;
 
+import no.ntnu.gr12.krrr_project.models.Item;
 import no.ntnu.gr12.krrr_project.models.ShoppingCart;
 import no.ntnu.gr12.krrr_project.repositories.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ShoppingCartService {
 
     @Autowired
     ShoppingCartRepository repository;
+    @Autowired
+    ItemService itemService;
 
     @Transactional
     public String addShoppingCart(ShoppingCart cart) {
@@ -62,9 +67,14 @@ public class ShoppingCartService {
 
     @Transactional
     public String emptyShoppingCart(Long id) {
+        List<Item> itemsToDelete = null;
         if (repository.findById(id).isPresent()) {
             try {
-                if(repository.findById(id).get().emptyCart()) {
+                if(repository.findById(id).isPresent()) {
+                    itemsToDelete = repository.findById(id).get().getItems();
+                    for(Item i: itemsToDelete) {
+                        itemService.deleteItem(i);
+                    }
                     return "Cart has been been emptied";
                 }
                 else return "Cart is already empty";

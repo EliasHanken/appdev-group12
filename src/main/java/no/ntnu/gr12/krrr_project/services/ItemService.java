@@ -1,6 +1,5 @@
 package no.ntnu.gr12.krrr_project.services;
 
-import no.ntnu.gr12.krrr_project.models.Helmet;
 import no.ntnu.gr12.krrr_project.models.Item;
 import no.ntnu.gr12.krrr_project.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +47,10 @@ public class ItemService {
     }
 
         @Transactional
-        public String deleteItem(Helmet helmet) {
-        if (itemRepository.findById(helmet.getItemID()).isPresent()) {
+        public String deleteItem(Item item) {
+        if (itemRepository.findById(item.getItemID()).isPresent()) {
             try {
-                itemRepository.delete(helmet);
+                itemRepository.delete(item);
                 return "Item has been deleted";
             } catch (Exception e) {
                 throw e;
