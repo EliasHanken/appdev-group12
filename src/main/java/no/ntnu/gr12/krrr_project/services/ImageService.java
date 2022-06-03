@@ -3,6 +3,7 @@ package no.ntnu.gr12.krrr_project.services;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import no.ntnu.gr12.krrr_project.models.Image;
 import no.ntnu.gr12.krrr_project.repositories.ImageRepository;
 import org.slf4j.Logger;
@@ -30,19 +31,19 @@ public class ImageService {
    * @return ID of the newly created image, -1 on error.
    */
   public int saveImage(MultipartFile imgData) {
-    if(!isImage(imgData)) {
+    if (!isImage(imgData)) {
       return -1;
     }
-    Image img = null;
-    try{
-      img = new Image(imgData.getBytes(), getFileExtension(imgData),
-        imgData.getContentType());
+    Image image = null;
+    try {
+      image = new Image(imgData.getBytes(), getFileExtension(imgData), imgData.getContentType());
+      imgRepo.save(image);
     } catch (IOException e) {
       logger.error("Could not store image: " + e.getMessage());
       return -1;
     }
 
-    return img.getId();
+    return image.getId();
   }
 
   /**

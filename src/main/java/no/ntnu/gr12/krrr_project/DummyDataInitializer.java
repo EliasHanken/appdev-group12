@@ -32,6 +32,8 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired ImageRepository imageRepository;
+
     @Autowired
     private UserService userService;
 
@@ -79,8 +81,25 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
             cartRepository.save(testCart);
             cartRepository.save(testCart);
-            //Bike bike1 = new Bike("1");
-            Bike bike1 = new Bike("1", "", "src/main/resources/red.jpg");
+
+
+            Utils imageDataConverter = new Utils();
+            byte[] imageBytes = null;
+            Image image1 = null;
+
+            try{
+              imageBytes = imageDataConverter.imageToByteArray("/red.jpg", "jpg");
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+
+            image1 = new Image(imageBytes, "jpg", "image/jpg");
+            //This image will be assigned id 7.
+            imageRepository.save(image1);
+
+
+            Bike bike1 = new Bike("1", "Commuter","",
+              7);
             bike1.setDescription("Unique red bike!!!");
 
             Bike bike2 = new Bike("2");
@@ -92,6 +111,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             bikeRepository.save(bike1);
             bikeRepository.save(bike2);
             bikeRepository.save(bike3);
+
 
             Helmet testHelmet2 = new Helmet();
 
