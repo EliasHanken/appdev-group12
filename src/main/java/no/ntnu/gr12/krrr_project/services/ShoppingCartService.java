@@ -1,5 +1,6 @@
 package no.ntnu.gr12.krrr_project.services;
 
+import no.ntnu.gr12.krrr_project.models.Bike;
 import no.ntnu.gr12.krrr_project.models.Item;
 import no.ntnu.gr12.krrr_project.models.ShoppingCart;
 import no.ntnu.gr12.krrr_project.repositories.ShoppingCartRepository;
@@ -16,6 +17,8 @@ public class ShoppingCartService {
     ShoppingCartRepository repository;
     @Autowired
     ItemService itemService;
+    @Autowired
+    BikeService bikeService;
 
     @Transactional
     public String addShoppingCart(ShoppingCart cart) {
@@ -68,21 +71,27 @@ public class ShoppingCartService {
     @Transactional
     public String emptyShoppingCart(Long id) {
         List<Item> itemsToDelete = null;
+        List<Bike> bikesToDelete = null;
         if (repository.findById(id).isPresent()) {
             try {
                 if(repository.findById(id).isPresent()) {
-                    itemsToDelete = repository.findById(id).get().getItems();
-                    for(Item i: itemsToDelete) {
-                        itemService.deleteItem(i);
+                    if(!repository.findById(id).get().getItems().isEmpty()) {
+                        itemsToDelete = repository.findById(id).get().getItems();
+                        for (Item i : itemsToDelete) {
+                            itemService.deleteItem(i);
                     }
-                    return "Cart has been been emptied";
+                    }
+                    if(!repository.findById(id).get().getBikes().isEmpty()) {
+                        bikesToDelete = repository.findById(id).get().getBikes();
+                        for (Bike b : bikesToDelete) {
+                            bikeService.deleteBike(b);
+                    }
+                    } return "Cart has been been emptied";
                 }
-                else return "Cart is already empty";
             } catch (Exception e) {
                 throw e;
             }
-        } else {
-            return "Cart does not exist in DB";
         }
+        return "Cart does not exist in DB";
     }
 }
