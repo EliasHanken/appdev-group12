@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import no.ntnu.gr12.krrr_project.models.ItemEnum;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
 @RestController
 public class ShoppingCartController {
 
@@ -68,8 +68,7 @@ public class ShoppingCartController {
         }
     }
 
-    @CrossOrigin(origins = "*")
-    @PutMapping("api/cart/{cartID}/emptyCart")
+    @PostMapping("/cart/{cartID}/emptyCart")
     public void emptyCart(@PathVariable Long cartID) {
         cartService.emptyShoppingCart(cartID);
     }

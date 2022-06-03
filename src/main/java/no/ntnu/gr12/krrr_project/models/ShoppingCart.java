@@ -61,20 +61,19 @@ public class ShoppingCart {
         this.user = user;
     }
 
-    public boolean emptyCart() {
-        if(items.isEmpty() && bikes.isEmpty()) {
-            return false;
-        }
-        else {
+    public List<Item> emptyCart() {
+        List<Item> itemsToDelete = new ArrayList<>();
+        if (!items.isEmpty()) {
             Iterator<Item> itemIterator = items.iterator();
-            while(itemIterator.hasNext()) {
+            while (itemIterator.hasNext()) {
+                itemsToDelete.add(itemIterator.next());
                 itemIterator.remove();
             }
-            Iterator<Bike> bikeIterator = bikes.iterator();
+            /*Iterator<Bike> bikeIterator = bikes.iterator();
             while(itemIterator.hasNext()) {
                 itemIterator.remove();
-            }
-            return true;
+            }*/
         }
+        return itemsToDelete;
     }
 }
