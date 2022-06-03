@@ -40,8 +40,7 @@ public class UserController {
     public ResponseEntity<?> getProfile(@PathVariable String username) throws InterruptedException {
         User sessionUser = accessUserService.getSessionUser();
         if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            UserProfileDto profile = new UserProfileDto(sessionUser.getEmail());
-            Thread.sleep(2000); // Simulate sleep
+            UserProfileDto profile = new UserProfileDto(sessionUser.getBio());
             return new ResponseEntity<>(profile, HttpStatus.OK);
         } else if (sessionUser == null) {
             return new ResponseEntity<>("Profile data accessible only to authenticated users", HttpStatus.UNAUTHORIZED);
@@ -55,8 +54,7 @@ public class UserController {
         ResponseEntity<String> response;
         if (sessionUser != null && sessionUser.getUsername().equals(username)) {
             if (profileData != null) {
-                if (accessUserService.updateProfile(sessionUser)) {
-                    Thread.sleep(2000); // Simulate long operation
+                if (accessUserService.updateProfile(sessionUser,profileData)) {
                     response = new ResponseEntity<>("", HttpStatus.OK);
                 } else {
                     response = new ResponseEntity<>("Could not update Profile data", HttpStatus.INTERNAL_SERVER_ERROR);

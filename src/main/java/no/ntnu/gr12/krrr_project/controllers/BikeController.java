@@ -2,6 +2,8 @@ package no.ntnu.gr12.krrr_project.controllers;
 
 import no.ntnu.gr12.krrr_project.services.BikeService;
 import no.ntnu.gr12.krrr_project.models.Bike;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,11 +21,13 @@ import java.util.stream.StreamSupport;
 @CrossOrigin
 @RestController
 public class BikeController {
+    Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @Autowired
     private BikeService bikeService;
 
-    @GetMapping("/bikes")
+    @CrossOrigin
+    @GetMapping("/api/bikes")
     public List<Bike> getBikes(){
         return StreamSupport
                         .stream(bikeService.readBikes()
@@ -31,17 +35,21 @@ public class BikeController {
                         .collect(Collectors.toList());
     }
 
-    @GetMapping("/bikes/{id}")
+    @CrossOrigin
+    @GetMapping("api/bikes/{id}")
     public Bike getBike(@PathVariable String id){
         for (Bike bikeFound : bikeService.readBikes()) {
             if (bikeFound.getBikeId().equals(id)) {
                 return bikeFound;
+            } else {
+              logger.error("Bike with id: " + id + " not found.");
             }
         }
         return null;
     }
 
-    @GetMapping("/bikes/image/{id}")
+    @CrossOrigin
+    @GetMapping("/api/bikes/image/{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable String id) throws IOException{
         File img = new File("src/main/resources/"+id+".jpg");
         if(!img.exists()){

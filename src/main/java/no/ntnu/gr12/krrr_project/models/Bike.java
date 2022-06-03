@@ -6,16 +6,23 @@ import javax.persistence.Id;
 
 @Entity
 public class Bike {
+
     @Id
     @GeneratedValue
     private Long bikeId;
+
+    /**Should be supplied in amount per min, I.E, 1 = 1kr/minute*/
+    private double price = 1;
 
     private String description;
 
     private String bikeModel;
 
-    /**Link to image of product*/
-    private String imgLink;
+    private String bikeModelName;
+
+    /**Id of image of product*/
+    private int imgId;
+
 
     public Bike(){
         this.bikeModel = "unknown";
@@ -25,10 +32,17 @@ public class Bike {
         this.bikeModel = bikeModel;
     }
 
-    public Bike(String bikeModel, String description, String imgLink) {
+    public Bike(String bikeModel, String description, int imgId) {
         this.bikeModel = bikeModel;
         this.description = description;
-        this.imgLink = imgLink;
+        this.imgId = imgId;
+    }
+
+    public Bike(String bikeModel, String bikeModelName, String description, int imgId){
+      this.bikeModel = bikeModel;
+      this.bikeModelName = bikeModelName;
+      this.description = description;
+      this.imgId = imgId;
     }
 
     public String getBikeId() {
@@ -52,7 +66,7 @@ public class Bike {
         return "Bike{" +
                 "id=" + bikeId +
                 ", description='" + description + '\''+
-                ", imgLink='" + imgLink +
+                ", Image='" + imgId +
                 '}';
     }
 
@@ -64,7 +78,23 @@ public class Bike {
         this.bikeModel = bikeModel;
     }
 
-    public String getImgLink() { return imgLink; }
+    public int getImgId() { return imgId; }
 
-    public void setImgLink(String imgLink) { this.imgLink = imgLink; }
+    public void setImgId(int imgId) { this.imgId = imgId; }
+
+  public String getBikeModelName() {
+    return bikeModelName;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public void setBikeModelName(String bikeModelName) {
+    this.bikeModelName = bikeModelName;
+  }
 }

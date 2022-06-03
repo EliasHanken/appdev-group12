@@ -1,10 +1,16 @@
 package no.ntnu.gr12.krrr_project.models;
 
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import no.ntnu.gr12.krrr_project.Utils;
 
 /**
  * Model for storing image data
@@ -19,9 +25,13 @@ public class Image {
   private byte[] data;
   private String extension;
   private String contentType;
+  /**To be used to search for images.
+   * Should have the same name as the product they represent, I.E; picture of
+   * bike model "Commuter" should have an imageName of "Commuter".
+   */
+  private String imageName;
 
   public Image(){
-
   }
 
   public Image(byte[] data, String extension, String contentType) {
@@ -30,8 +40,8 @@ public class Image {
     this.contentType = contentType;
   }
 
-  //Getters&Setters\\
 
+  //Getters&Setters\\
   public Integer getId() { return id; }
 
   public void setId(Integer id) { this.id = id; }
@@ -47,6 +57,14 @@ public class Image {
   public String getContentType() { return contentType; }
 
   public void setContentType(String contentType) { this.contentType = contentType; }
+
+  public String getImageName() {
+    return imageName;
+  }
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
+  }
 
   public String getFileName(){ return id + "." + extension; }
 }
