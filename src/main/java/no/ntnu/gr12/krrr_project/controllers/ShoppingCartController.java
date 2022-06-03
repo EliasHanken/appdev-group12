@@ -68,7 +68,7 @@ public class ShoppingCartController {
         }
     }
 
-    @PostMapping("/cart/{cartID}/emptyCart")
+    @PutMapping("/api/cart/{cartID}/emptyCart")
     public void emptyCart(@PathVariable Long cartID) {
         cartService.emptyShoppingCart(cartID);
     }
