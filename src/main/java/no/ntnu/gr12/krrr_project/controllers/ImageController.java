@@ -32,9 +32,9 @@ public class ImageController {
   ImageService imgService;
 
   @PostMapping("/images")
-  public ResponseEntity<String> upload(@RequestParam("fileContent")MultipartFile multipartFile) {
+  public ResponseEntity<String> upload(@RequestParam("fileContent")MultipartFile multipartFile, String productName) {
     ResponseEntity<String> response = null;
-    int imgId = imgService.saveImage((multipartFile));
+    int imgId = imgService.saveImage((multipartFile), productName);
     if(imgId > 0) {
       response = new ResponseEntity<>("" + imgId, HttpStatus.OK);
     } else {

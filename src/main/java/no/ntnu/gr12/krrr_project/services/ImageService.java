@@ -28,15 +28,16 @@ public class ImageService {
    * Save the provided image to the storage
    *
    * @param imgData Image file data receved from web client
+   * @param productName The name of the product the image represents
    * @return ID of the newly created image, -1 on error.
    */
-  public int saveImage(MultipartFile imgData) {
+  public int saveImage(MultipartFile imgData, String productName) {
     if (!isImage(imgData)) {
       return -1;
     }
     Image image = null;
     try {
-      image = new Image(imgData.getBytes(), getFileExtension(imgData), imgData.getContentType());
+      image = new Image(imgData.getBytes(), getFileExtension(imgData), imgData.getContentType(), productName);
       imgRepo.save(image);
     } catch (IOException e) {
       logger.error("Could not store image: " + e.getMessage());

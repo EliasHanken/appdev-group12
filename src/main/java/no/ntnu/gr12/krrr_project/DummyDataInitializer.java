@@ -93,7 +93,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
               e.printStackTrace();
             }
 
-            image1 = new Image(imageBytes, "jpg", "image/jpg");
+            image1 = new Image(imageBytes, "jpg", "image/jpg", "Commuter");
             //This image will be assigned id 7.
             imageRepository.save(image1);
 
