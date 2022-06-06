@@ -20,7 +20,6 @@ public class OrderService {
 
     @Transactional
     public boolean addOrder(Order order) {
-        Order newOrder = new Order();
         try {
             if(order.getTransactionId() == null || order.getTransactionId().toString().equals("")){
                 repository.save(order);
