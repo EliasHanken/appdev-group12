@@ -90,7 +90,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
             Utils imageDataConverter = new Utils();
             byte[] imageBytes = null;
-            Image image1 = null;
+            Image image = null;
 
             try{
               Path path = Paths.get("images/commuter.jpg");
@@ -99,14 +99,14 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
               e.printStackTrace();
             }
 
-            image1 = new Image(imageBytes, "jpg", "image/jpg", "Commuter");
+            image = new Image(imageBytes, "jpg", "image/jpg", "Commuter");
             //This image will be assigned id 7.
-            imageRepository.save(image1);
+            imageRepository.save(image);
 
 
             Bike bike1 = new Bike("1", "Commuter","",
               7);
-            bike1.setDescription("Unique red bike!!!");
+            bike1.setDescription("A red bike of model Commuter");
             bike1.setImgData(imageBytes);
 
             Bike bike2 = new Bike("2");
@@ -142,8 +142,27 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             orderRepository.save(order3);
 
             Product product1 = new Product("Canvas Bag", 100);
+            product1.setDescription("An environmentally friendly canvas bag.");
             Product product2 = new Product("Borsalino helmet", 150);
+            product2.setDescription("A stylish vintage Borsalino helmet.");
             Product product3 = new Product("Chalk", 250);
+            product3.setDescription("A set of specially developed chalk you can use " +
+              "to customize any bike you have loaned from us.");
+
+
+            try{
+              //product1
+              product1.setImgData(imageDataConverter.imageToByteArray(
+                "images/textile-bag-cropped.jpg", "jpg"));
+              //product2
+              product2.setImgData(imageDataConverter.imageToByteArray(
+                  "images/bike-helmet-cropped.jpg", "jpg"));
+              //product3
+              product3.setImgData(imageDataConverter.imageToByteArray(
+                "images/chalk-cropped.jpg", "jpg"));
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
 
             productRepository.save(product1);
             productRepository.save(product2);
