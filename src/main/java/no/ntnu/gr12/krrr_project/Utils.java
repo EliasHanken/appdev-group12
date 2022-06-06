@@ -38,16 +38,15 @@ public class Utils {
   /**
    * Attempts to convert an image specified by sourceFilePath into a byte array for sending
    * via XMLHttpRequest
-   * @param sourceFilePath Path of file to be converted
+   * @param sourceFilePath Path of file to be converted - Needs to be path from source root
+   *                       i.e: images/commuter.jpg for file "commuter.jpg" located in resources/images
    * @param extension extension of file to be converted
    * @return Array of bytes resulting from conversion of image file.
    * @throws IOException
    */
     public byte[] imageToByteArray(String sourceFilePath, String extension) throws IOException {
-
       try{
-        InputStream input = getClass()
-          .getResourceAsStream(sourceFilePath);
+        InputStream input = Utils.class.getClassLoader().getResourceAsStream(sourceFilePath);
         return IOUtils.toByteArray(input);
       } catch (Exception e) {
         e.printStackTrace();

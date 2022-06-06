@@ -3,6 +3,7 @@ package no.ntnu.gr12.krrr_project.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Bike {
@@ -23,6 +24,10 @@ public class Bike {
     /**Id of image of product*/
     private int imgId;
 
+
+    /**Array of bytes forming product image.*/
+    @Lob
+    private byte[] imgData;
 
     public Bike(){
         this.bikeModel = "unknown";
@@ -96,5 +101,13 @@ public class Bike {
 
   public void setBikeModelName(String bikeModelName) {
     this.bikeModelName = bikeModelName;
+  }
+
+  public byte[] getImgData() {
+    return imgData;
+  }
+
+  public void setImgData(byte[] imgData) {
+    this.imgData = imgData;
   }
 }

@@ -3,6 +3,7 @@ package no.ntnu.gr12.krrr_project.services;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import no.ntnu.gr12.krrr_project.models.Image;
 import no.ntnu.gr12.krrr_project.repositories.ImageRepository;
@@ -28,15 +29,16 @@ public class ImageService {
    * Save the provided image to the storage
    *
    * @param imgData Image file data receved from web client
+   * @param productName The name of the product the image represents
    * @return ID of the newly created image, -1 on error.
    */
-  public int saveImage(MultipartFile imgData) {
+  public int saveImage(MultipartFile imgData, String productName) {
     if (!isImage(imgData)) {
       return -1;
     }
     Image image = null;
     try {
-      image = new Image(imgData.getBytes(), getFileExtension(imgData), imgData.getContentType());
+      image = new Image(imgData.getBytes(), getFileExtension(imgData), imgData.getContentType(), productName);
       imgRepo.save(image);
     } catch (IOException e) {
       logger.error("Could not store image: " + e.getMessage());
@@ -91,6 +93,25 @@ public class ImageService {
    */
   public Image getImageByID(Integer id) {
     return imgRepo.findById(id).orElse(null);
+  }
+
+  /**
+   * Searches through all stored images to try and find one with a productName matching
+   * targetProductName. Returns the first one found.
+   * @param targetProductName productName to look for in images.
+   * @return The first image found with productName matching targetProductName.
+   */
+  public Image getImageByProductName(String targetProductName){
+    boolean targetFound = false;
+    Image targetImage = null;
+    Iterator<Image> iterator = imgRepo.findAll().iterator();
+    while(iterator.hasNext() && targetFound == false){
+      if(iterator.next().getProductName().equals(targetProductName)){
+        targetImage = iterator.next();
+        targetFound = true;
+      }
+    }
+    return targetImage;
   }
 
   /**

@@ -32,9 +32,9 @@ public class ImageController {
   ImageService imgService;
 
   @PostMapping("/images")
-  public ResponseEntity<String> upload(@RequestParam("fileContent")MultipartFile multipartFile) {
+  public ResponseEntity<String> upload(@RequestParam("fileContent")MultipartFile multipartFile, String productName) {
     ResponseEntity<String> response = null;
-    int imgId = imgService.saveImage((multipartFile));
+    int imgId = imgService.saveImage((multipartFile), productName);
     if(imgId > 0) {
       response = new ResponseEntity<>("" + imgId, HttpStatus.OK);
     } else {
@@ -54,6 +54,24 @@ public class ImageController {
     logger.info("Calling ImageController.GetMapping() with id: " + id);
     ResponseEntity<byte[]> response;
     Image img = imgService.getImageByID(id);
+    if(img != null) {
+      response = ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_TYPE, img.getContentType())
+        .body(img.getData());
+    } else {
+      response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    logger.info(response.toString());
+    return response;
+  }
+
+  @CrossOrigin
+  @GetMapping(value = "/api/images/{productName}",
+  produces = MediaType.IMAGE_JPEG_VALUE)
+  public ResponseEntity<byte[]> get(@PathVariable String productName) {
+    logger.info("Calling ImageController.getMapping() with productName: " + productName);
+    ResponseEntity<byte[]> response;
+    Image img = imgService.getImageByProductName(productName);
     if(img != null) {
       response = ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_TYPE, img.getContentType())
