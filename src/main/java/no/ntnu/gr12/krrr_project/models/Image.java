@@ -1,16 +1,10 @@
 package no.ntnu.gr12.krrr_project.models;
 
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import no.ntnu.gr12.krrr_project.Utils;
 
 /**
  * Model for storing image data
@@ -59,11 +53,11 @@ public class Image {
 
   public void setContentType(String contentType) { this.contentType = contentType; }
 
-  public String getImageName() {
+  public String getProductName() {
     return productName;
   }
 
-  public void setImageName(String productName) {
+  public void setProductName(String productName) {
     this.productName = productName;
   }
 

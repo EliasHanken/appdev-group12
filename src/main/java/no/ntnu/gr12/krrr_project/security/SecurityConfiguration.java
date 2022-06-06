@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Allow JWT authentication
+
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
@@ -43,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/bikes/*").permitAll()
                 .antMatchers("/api/bikes/image/*").permitAll()
                 .antMatchers("/api/images/*").permitAll()
+                .antMatchers("/api/images/commuter").permitAll()
                 //.antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()

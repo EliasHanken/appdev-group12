@@ -1,10 +1,15 @@
 package no.ntnu.gr12.krrr_project;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import no.ntnu.gr12.krrr_project.models.*;
 import no.ntnu.gr12.krrr_project.repositories.*;
 import no.ntnu.gr12.krrr_project.services.ItemService;
 import no.ntnu.gr12.krrr_project.services.ShoppingCartService;
 import no.ntnu.gr12.krrr_project.services.UserService;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +93,8 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             Image image1 = null;
 
             try{
-              imageBytes = imageDataConverter.imageToByteArray("/red.jpg", "jpg");
+              Path path = Paths.get("images/commuter.jpg");
+              imageBytes = imageDataConverter.imageToByteArray(path.toString(), "jpg");
             } catch (Exception e) {
               e.printStackTrace();
             }
@@ -101,6 +107,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             Bike bike1 = new Bike("1", "Commuter","",
               7);
             bike1.setDescription("Unique red bike!!!");
+            bike1.setImgData(imageBytes);
 
             Bike bike2 = new Bike("2");
             bike2.setDescription("Very nice green bike");

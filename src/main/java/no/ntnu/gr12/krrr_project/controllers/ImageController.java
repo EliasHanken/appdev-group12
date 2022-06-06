@@ -65,6 +65,24 @@ public class ImageController {
     return response;
   }
 
+  @CrossOrigin
+  @GetMapping(value = "/api/images/{productName}",
+  produces = MediaType.IMAGE_JPEG_VALUE)
+  public ResponseEntity<byte[]> get(@PathVariable String productName) {
+    logger.info("Calling ImageController.getMapping() with productName: " + productName);
+    ResponseEntity<byte[]> response;
+    Image img = imgService.getImageByProductName(productName);
+    if(img != null) {
+      response = ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_TYPE, img.getContentType())
+        .body(img.getData());
+    } else {
+      response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    logger.info(response.toString());
+    return response;
+  }
+
   /**
    * Delete image from database
    * @param id ID of image to be deleted
