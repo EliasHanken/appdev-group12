@@ -1,9 +1,7 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Bike {
@@ -34,11 +32,12 @@ public class Bike {
     @Lob
     private byte[] imgData;
 
+    private boolean onLoan;
 
+    /**True if bike is currently on loan, else false.*/
     private LocalDateTime loanStartTime;
 
-    private boolean onLoan;
-    /**True if bike is currently on loan, else false.*/
+
     public Bike(){
         this.onLoan = false;
         this.bikeModel = "unknown";
