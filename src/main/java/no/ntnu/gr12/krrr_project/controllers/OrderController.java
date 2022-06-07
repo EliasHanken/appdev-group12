@@ -12,6 +12,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -62,17 +63,18 @@ public class OrderController {
     }
 
     @GetMapping("api/orderbyuserid/{id}")
-    public Order getOrderByUserId(@PathVariable Long id) {
+    public List<Order> getOrderByUserId(@PathVariable Long id) {
         Iterator<Order> it = orderService.readOrders().iterator();
+        List<Order> orders = new ArrayList<>();
         while(it.hasNext()){
             Order foundOrder = it.next();
             if(foundOrder.getUserId() != null){
                 if(foundOrder.getUserId().equals(id)){
-                    return foundOrder;
+                    orders.add(foundOrder);
                 }
             }
         }
-        return null;
+        return orders;
     }
 
     /**
