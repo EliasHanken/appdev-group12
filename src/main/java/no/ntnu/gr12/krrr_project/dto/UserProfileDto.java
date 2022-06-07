@@ -7,12 +7,17 @@ import java.util.Collection;
 
 public class UserProfileDto implements UserDetails {
     private String bio;
+    private String username;
+    private Long id;
 
     public UserProfileDto(String bio) {
         this.bio = bio;
     }
 
-    public UserProfileDto() {
+    public UserProfileDto(String bio, String username, Long id) {
+        this.bio = bio;
+        this.username = username;
+        this.id = id;
     }
 
     public String getBio() {
@@ -56,5 +61,17 @@ public class UserProfileDto implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

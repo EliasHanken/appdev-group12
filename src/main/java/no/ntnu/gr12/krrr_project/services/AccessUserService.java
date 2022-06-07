@@ -1,5 +1,6 @@
 package no.ntnu.gr12.krrr_project.services;
 
+import no.ntnu.gr12.krrr_project.dto.UserDto;
 import no.ntnu.gr12.krrr_project.dto.UserProfileDto;
 import no.ntnu.gr12.krrr_project.models.Role;
 import no.ntnu.gr12.krrr_project.models.User;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -26,6 +28,8 @@ public class AccessUserService implements UserDetailsService {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,6 +38,20 @@ public class AccessUserService implements UserDetailsService {
             return new AccessUserDetails(user.get());
         } else {
             throw new UsernameNotFoundException("User " + username + "not found");
+        }
+    }
+
+    public UserDto loadUserById(Long id) throws UsernameNotFoundException {
+        User user = null;
+        for (User cachedUser : userService.readUsers()) {
+            if (cachedUser.getId().equals(id)) {
+                user = cachedUser;
+            }
+        }
+        if (user != null) {
+            return new UserDto(user.getUsername(),user.getId().toString());
+        } else {
+            throw new UsernameNotFoundException("User with id " + id + "not found");
         }
     }
 

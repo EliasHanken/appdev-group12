@@ -16,10 +16,7 @@ public class Order {
     private boolean shippedFlag;
     @OneToMany()
     private List<Item> items = new ArrayList<>();
-    @JsonIgnore
-    @ManyToOne
-    private User user;
-
+    private Long userId;
     public Order() {
     }
 
@@ -33,14 +30,6 @@ public class Order {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public List<Item> getItemId() {
@@ -87,5 +76,13 @@ public class Order {
                 ", shippedFlag=" + shippedFlag +
                 ", items=" + items +
                 '}';
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

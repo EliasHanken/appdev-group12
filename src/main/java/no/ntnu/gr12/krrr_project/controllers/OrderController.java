@@ -12,6 +12,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ import java.util.stream.StreamSupport;
  * @author Anders M. H. Frostrud
  */
 //TODO Move most of logic from methods to service classes
-@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
+@CrossOrigin
 @RestController
 public class OrderController {
 
@@ -61,6 +62,21 @@ public class OrderController {
         return null;
     }
 
+    @GetMapping("api/orderbyuserid/{id}")
+    public List<Order> getOrderByUserId(@PathVariable Long id) {
+        Iterator<Order> it = orderService.readOrders().iterator();
+        List<Order> orders = new ArrayList<>();
+        while(it.hasNext()){
+            Order foundOrder = it.next();
+            if(foundOrder.getUserId() != null){
+                if(foundOrder.getUserId().equals(id)){
+                    orders.add(foundOrder);
+                }
+            }
+        }
+        return orders;
+    }
+
     /**
      * Adds an order to the order list in orderService class through the /orders mapping
      * @param order the order to be added
@@ -87,6 +103,11 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.PUT, value = "api/orders/update/{id}")
     public void updateOrder(@RequestBody Order orderUpdateRequest) {
         orderService.updateOrders(orderUpdateRequest.getTransactionId(),orderUpdateRequest.getDestination(),(orderUpdateRequest.isShippedFlag()));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "api/orders/{id}")
+    public void updateOrder(@RequestBody OrderUpdateRequest orderUpdateRequest) {
+        orderService.updateOrders(Long.valueOf(orderUpdateRequest.getId()),orderUpdateRequest.getDestination(),Boolean.parseBoolean(orderUpdateRequest.getShippedFlag()));
     }
 
     /**
