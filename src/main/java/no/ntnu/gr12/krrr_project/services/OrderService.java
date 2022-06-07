@@ -29,26 +29,29 @@ public class OrderService {
 
     @Transactional
     public boolean addOrder(List<String> orderDetails) {
-                try {
-            if(orderDetails != null) {
-                    User currentUser = null;
-                    newOrder.setShippedFlag(false);
-                    Orderrepository.save(newOrder);
-                    return false;
-            } return false;
-                    return true;
-                } catch (Exception e) {
-                }
-                    newOrder.setDestination(orderDetails.get(0));
-                    //TODO wtf, way too ugly
-                    newOrder.setUser(currentUser);
-                        }
-                    Order newOrder = new Order();
-                            currentUser = u;
+        if(orderDetails != null) {
+            try {
+                User currentUser = null;
+                for (User u : userService.readUsers()) {
+                    if (u.getUsername().equalsIgnoreCase(orderDetails.get(1))) {
+                        currentUser = u;
                     }
+                }
+                if(currentUser != null) {
+                    Order newOrder = new Order();
+                    newOrder.setDestination(orderDetails.get(0));
+                    newOrder.setShippedFlag(false);
+                    //TODO wtf, way too ugly
                     newOrder.setItems(copyItemList(currentUser.getCart().getItems()));
-                    for (User u : userService.readUsers()) {
-                        if (u.getUsername().equalsIgnoreCase(orderDetails.get(1))) {
+                    newOrder.setUser(currentUser);
+                    Orderrepository.save(newOrder);
+                    return true;
+                }
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        } return false;
     }
 
     public Iterable<Order> readOrders() {

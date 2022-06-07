@@ -88,12 +88,4 @@ public class Order {
                 ", items=" + items +
                 '}';
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
