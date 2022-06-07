@@ -61,6 +61,17 @@ public class OrderController {
         return null;
     }
 
+    @GetMapping("api/orderbyuserid/{id}")
+    public Order getOrderByUserId(@PathVariable Long id) {
+
+        for (Order orderFound : orderService.readOrders()) {
+            if (orderFound.getUserId().equals(id)) {
+                return orderFound;
+            }
+        }
+        return null;
+    }
+
     /**
      * Adds an order to the order list in orderService class through the /orders mapping
      * @param order the order to be added

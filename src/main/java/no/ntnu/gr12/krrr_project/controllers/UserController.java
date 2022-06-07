@@ -41,7 +41,7 @@ public class UserController {
     public ResponseEntity<?> getProfile(@PathVariable String username) throws InterruptedException {
         User sessionUser = accessUserService.getSessionUser();
         if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            UserDto profile = new UserDto(sessionUser.getUsername(),sessionUser.getId().toString());
+            UserProfileDto profile = new UserProfileDto(sessionUser.getBio());
             return new ResponseEntity<>(profile, HttpStatus.OK);
         } else if (sessionUser == null) {
             return new ResponseEntity<>("Profile data accessible only to authenticated users", HttpStatus.UNAUTHORIZED);
