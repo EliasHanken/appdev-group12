@@ -136,6 +136,7 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
             Order order3 = new Order();
             order3.setDestination("USA");
             order3.setShippedFlag(true);
+            order3.setUserId(7L);
 
             orderRepository.save(order);
             orderRepository.save(order2);

@@ -63,10 +63,13 @@ public class OrderController {
 
     @GetMapping("api/orderbyuserid/{id}")
     public Order getOrderByUserId(@PathVariable Long id) {
-
-        for (Order orderFound : orderService.readOrders()) {
-            if (orderFound.getUserId().equals(id)) {
-                return orderFound;
+        Iterator<Order> it = orderService.readOrders().iterator();
+        while(it.hasNext()){
+            Order foundOrder = it.next();
+            if(foundOrder.getUserId() != null){
+                if(foundOrder.getUserId().equals(id)){
+                    return foundOrder;
+                }
             }
         }
         return null;

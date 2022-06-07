@@ -41,8 +41,19 @@ public class UserController {
     public ResponseEntity<?> getProfile(@PathVariable String username) throws InterruptedException {
         User sessionUser = accessUserService.getSessionUser();
         if (sessionUser != null && sessionUser.getUsername().equals(username)) {
-            UserProfileDto profile = new UserProfileDto(sessionUser.getBio());
+            UserProfileDto profile = new UserProfileDto(sessionUser.getBio(),sessionUser.getUsername(),sessionUser.getId());
             return new ResponseEntity<>(profile, HttpStatus.OK);
+        } else if (sessionUser == null) {
+            return new ResponseEntity<>("Profile data accessible only to authenticated users", HttpStatus.UNAUTHORIZED);
+        } else {
+            return new ResponseEntity<>("Profile data for other users not accessible!", HttpStatus.FORBIDDEN);
+        }
+    }
+    @GetMapping("/api/userId/{username}")
+    public ResponseEntity<?> getUserId(@PathVariable String username) throws InterruptedException {
+        User sessionUser = accessUserService.getSessionUser();
+        if (sessionUser != null && sessionUser.getUsername().equals(username)) {
+            return new ResponseEntity<>(sessionUser.getId(), HttpStatus.OK);
         } else if (sessionUser == null) {
             return new ResponseEntity<>("Profile data accessible only to authenticated users", HttpStatus.UNAUTHORIZED);
         } else {
