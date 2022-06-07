@@ -144,8 +144,8 @@ public class DummyDataInitializer implements ApplicationListener<ApplicationRead
 
             Product product1 = new Product("Canvas Bag", 100);
             product1.setDescription("An environmentally friendly canvas bag.");
-            Product product2 = new Product("Borsalino helmet", 150);
-            product2.setDescription("A stylish vintage Borsalino helmet.");
+            Product product2 = new Product("Bicycle Helmet", 150);
+            product2.setDescription("A stylish helmet.");
             Product product3 = new Product("Chalk", 250);
             product3.setDescription("A set of specially developed chalk you can use " +
               "to customize any bike you have loaned from us.");

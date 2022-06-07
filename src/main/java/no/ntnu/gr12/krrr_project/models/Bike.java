@@ -1,6 +1,9 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Bike {
@@ -32,18 +35,26 @@ public class Bike {
     private byte[] imgData;
 
 
+    private LocalDateTime loanStartTime;
+
+    private boolean onLoan;
+    /**True if bike is currently on loan, else false.*/
     public Bike(){
-        //this.bikeModel = "unknown";
+        this.onLoan = false;
+        this.bikeModel = "unknown";
     }
 
     public Bike(String bikeModel) {
         this.bikeModel = bikeModel;
+      this.onLoan = false;
     }
+
 
     public Bike(String bikeModel, String description, int imgId) {
         this.bikeModel = bikeModel;
         this.description = description;
         this.imgId = imgId;
+        this.onLoan = false;
     }
 
     public Bike(String bikeModel, String bikeModelName, String description, int imgId){
@@ -51,6 +62,7 @@ public class Bike {
       this.bikeModelName = bikeModelName;
       this.description = description;
       this.imgId = imgId;
+      this.onLoan = false;
     }
 
     public Long getBikeID() {
@@ -112,5 +124,21 @@ public class Bike {
 
   public void setImgData(byte[] imgData) {
     this.imgData = imgData;
+  }
+
+  public boolean isOnLoan() {
+    return onLoan;
+  }
+
+  public void setOnLoan(boolean onLoan) {
+    this.onLoan = onLoan;
+  }
+
+  public LocalDateTime getLoanStartTime() {
+    return loanStartTime;
+  }
+
+  public void setLoanStartTime(LocalDateTime loanStartTime) {
+    this.loanStartTime = loanStartTime;
   }
 }
