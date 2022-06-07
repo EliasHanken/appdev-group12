@@ -43,7 +43,7 @@ public class OrderService {
                     newOrder.setShippedFlag(false);
                     //TODO wtf, way too ugly
                     newOrder.setItems(copyItemList(currentUser.getCart().getItems()));
-                    newOrder.setUser(currentUser);
+                    newOrder.setUserId(currentUser.getId());
                     Orderrepository.save(newOrder);
                     return true;
                 }
