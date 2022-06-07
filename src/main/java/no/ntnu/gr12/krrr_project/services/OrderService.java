@@ -67,6 +67,7 @@ public class OrderService {
                 orderToUpdate.setShippedFlag(newFlag);
                 return "Order info is updated";
             } catch (Exception e) {
+                e.printStackTrace();
                 throw e;
             }
         } else {

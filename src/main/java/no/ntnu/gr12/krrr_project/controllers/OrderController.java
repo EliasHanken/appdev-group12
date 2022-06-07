@@ -24,7 +24,7 @@ import java.util.stream.StreamSupport;
  * @author Anders M. H. Frostrud
  */
 //TODO Move most of logic from methods to service classes
-@CrossOrigin(origins = {"*"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT })
+@CrossOrigin
 @RestController
 public class OrderController {
 
@@ -87,6 +87,11 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.PUT, value = "api/orders/update/{id}")
     public void updateOrder(@RequestBody Order orderUpdateRequest) {
         orderService.updateOrders(orderUpdateRequest.getTransactionId(),orderUpdateRequest.getDestination(),(orderUpdateRequest.isShippedFlag()));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "api/orders/{id}")
+    public void updateOrder(@RequestBody OrderUpdateRequest orderUpdateRequest) {
+        orderService.updateOrders(Long.valueOf(orderUpdateRequest.getId()),orderUpdateRequest.getDestination(),Boolean.parseBoolean(orderUpdateRequest.getShippedFlag()));
     }
 
     /**
