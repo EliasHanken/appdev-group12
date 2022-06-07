@@ -24,7 +24,7 @@ abstract public class Item {
     private ShoppingCart cart;
     /**Link to image of product*/
     private String imgLink;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderID")
     private Order order;
 

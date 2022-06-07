@@ -1,16 +1,13 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
 public class Bike {
 
     @Id
-    @GeneratedValue
-    private Long bikeId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long bikeID;
 
     /**Should be supplied in amount per min, I.E, 1 = 1kr/minute*/
     private double price = 1;
@@ -21,16 +18,22 @@ public class Bike {
 
     private String bikeModelName;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ShoppingCart cart;
+
+    @ManyToOne
+    private Order order;
+
     /**Id of image of product*/
     private int imgId;
-
 
     /**Array of bytes forming product image.*/
     @Lob
     private byte[] imgData;
 
+
     public Bike(){
-        this.bikeModel = "unknown";
+        //this.bikeModel = "unknown";
     }
 
     public Bike(String bikeModel) {
@@ -50,12 +53,12 @@ public class Bike {
       this.imgId = imgId;
     }
 
-    public String getBikeId() {
-        return String.valueOf(bikeId);
+    public Long getBikeID() {
+        return bikeID;
     }
 
-    public void setBikeId(String bikeId) {
-        this.bikeId = Long.valueOf(bikeId);
+    public void setBikeID(Long bikeId) {
+        this.bikeID = bikeId;
     }
 
     public String getDescription() {
@@ -69,7 +72,7 @@ public class Bike {
     @Override
     public String toString(){
         return "Bike{" +
-                "id=" + bikeId +
+                "id=" + bikeID +
                 ", description='" + description + '\''+
                 ", Image='" + imgId +
                 '}';

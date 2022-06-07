@@ -1,7 +1,5 @@
 package no.ntnu.gr12.krrr_project.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +13,19 @@ public class Order {
     private String destination;
     private boolean shippedFlag;
     @OneToMany()
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items;
+
+    @OneToMany()
+    private List<Bike> bikes;
     private Long userId;
+
+
+
+
+
     public Order() {
+        this.items = new ArrayList<>();
+        this.bikes = new ArrayList<>();
     }
 
     public void setTransactionId(Long transactionId) {
@@ -84,5 +92,13 @@ public class Order {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public List<Bike> getBikes() {
+        return bikes;
+    }
+
+    public void setBikes(List<Bike> bikes) {
+        this.bikes = bikes;
     }
 }

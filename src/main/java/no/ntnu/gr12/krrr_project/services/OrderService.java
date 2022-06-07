@@ -26,6 +26,8 @@ public class OrderService {
     private UserService userService;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private BikeService bikeService;
 
     @Transactional
     public boolean addOrder(List<String> orderDetails) {
@@ -43,6 +45,7 @@ public class OrderService {
                     newOrder.setShippedFlag(false);
                     //TODO wtf, way too ugly
                     newOrder.setItems(copyItemList(currentUser.getCart().getItems()));
+                    newOrder.setBikes(copyBikeList(currentUser.getCart().getBikes()));
                     newOrder.setUserId(currentUser.getId());
                     Orderrepository.save(newOrder);
                     return true;
@@ -127,5 +130,19 @@ public class OrderService {
             }
         }
         return copiedList;
+    }
+
+    private List<Bike> copyBikeList(List<Bike> list) {
+        List<Bike> copiedList = new ArrayList<>();
+        for(Bike i : list) {
+                Bike newBike = new Bike();
+                newBike.setDescription(i.getDescription());
+                newBike.setPrice(i.getPrice());
+                newBike.setBikeModel(i.getBikeModel());
+                newBike.setBikeModelName(i.getBikeModelName());
+                bikeService.createBike(newBike);
+                copiedList.add(newBike);
+            }
+            return copiedList;
     }
 }

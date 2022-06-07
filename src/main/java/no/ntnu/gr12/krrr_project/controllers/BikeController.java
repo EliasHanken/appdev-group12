@@ -39,7 +39,7 @@ public class BikeController {
     @GetMapping("api/bikes/{id}")
     public Bike getBike(@PathVariable String id){
         for (Bike bikeFound : bikeService.readBikes()) {
-            if (bikeFound.getBikeId().equals(id)) {
+            if (bikeFound.getBikeID().equals(id)) {
                 return bikeFound;
             } else {
               logger.error("Bike with id: " + id + " not found.");

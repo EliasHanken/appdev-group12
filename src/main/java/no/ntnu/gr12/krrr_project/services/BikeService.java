@@ -10,33 +10,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class BikeService {
     //Used to reference to repository to save to DB.
     @Autowired
-    BikeRepository repository;
+    BikeRepository bikeRepository;
 
     @Transactional
     public String createBike(Bike bike){
-        try{
-            if(!repository.existsById(String.valueOf(bike.getBikeId()))){
-                repository.save(bike);
+        try {
+                bikeRepository.save(bike);
                 return "Bike inserted!";
-            }else{
-                return "Bike already exists in the DB";
-            }
-        }catch (Exception e){
-            throw e;
+            } catch(Exception e) {
+            return "Bike already exists in the DB";
         }
     }
 
     public Iterable<Bike> readBikes(){
-        return repository.findAll();
+        return bikeRepository.findAll();
     }
 
     @Transactional
     public String updateBike(Bike bike){
-        if(repository.existsById(String.valueOf(bike.getBikeId()))){
+        if(bikeRepository.existsById(bike.getBikeID())){
             try{
-                Bike bikeToUpdate = repository.findById(String.valueOf(bike.getBikeId())).get();
+                Bike bikeToUpdate = bikeRepository.findById(bike.getBikeID()).get();
                 bikeToUpdate.setDescription(bike.getDescription());
-                repository.save(bikeToUpdate);
+                bikeRepository.save(bikeToUpdate);
                 return "Bike info updated";
             }catch (Exception e){
                 throw e;
@@ -48,15 +44,14 @@ public class BikeService {
 
     @Transactional
     public String deleteBike(Bike bike){
-        if(repository.existsById(String.valueOf(bike.getBikeId()))){
-            try{
-                repository.delete(bike);
-                return "Bike is deleted successfully!";
-            }catch (Exception e){
+        if (bikeRepository.findById(bike.getBikeID()).isPresent()) {
+            try {
+                bikeRepository.delete(bike);
+                return "Bike has been deleted";
+            } catch (Exception e) {
                 throw e;
             }
-
-        }else {
+        } else {
             return "Bike does not exist in DB";
         }
     }

@@ -8,24 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ItemService {
-        @Autowired
-        ItemRepository itemRepository;
+    @Autowired
+    ItemRepository itemRepository;
 
-        @Transactional
-        public String addItem(Item item) {
-            itemRepository.save(item);
+    @Transactional
+    public String addItem(Item item) {
         try {
-            if(itemRepository.findById(item.getItemID()).isEmpty()) {
-
-                return "Item is saved";
-            } else {
-                return "Item already exists";
-            }
-        } catch (Exception e) {
-            throw e;
-
+            itemRepository.save(item);
+            return "Item is saved";
+        } catch (Exception e){
+            return "Item already exists";
         }
     }
+
 
         public Iterable<Item> readCarts() {
         return itemRepository.findAll();
