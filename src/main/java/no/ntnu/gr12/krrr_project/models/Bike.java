@@ -33,12 +33,8 @@ public class Bike {
     /**Array of bytes forming product image.*/
     @Lob
     private byte[] imgData;
-
-<<<<<<< HEAD
+    
   /**True if bike is currently on loan, else false.*/
-=======
-    /**True if bike is currently on loan, else false.*/
->>>>>>> b1b8cb1ab7ddad17eb36d8791ad92c05ffcb5ee9
     private boolean onLoan;
 
     private LocalDateTime loanStartTime;
