@@ -134,12 +134,12 @@ public class OrderService {
 
     private List<Bike> copyBikeList(List<Bike> list) {
         List<Bike> copiedList = new ArrayList<>();
-        for(Bike i : list) {
+        for(Bike b : list) {
                 Bike newBike = new Bike();
-                newBike.setDescription(i.getDescription());
-                newBike.setPrice(i.getPrice());
-                newBike.setBikeModel(i.getBikeModel());
-                newBike.setBikeModelName(i.getBikeModelName());
+                newBike.setDescription(b.getDescription());
+                newBike.setPrice(b.getPrice());
+                newBike.setBikeModel(b.getBikeModel());
+                newBike.setBikeModelName(b.getBikeModelName());
                 bikeService.createBike(newBike);
                 copiedList.add(newBike);
             }

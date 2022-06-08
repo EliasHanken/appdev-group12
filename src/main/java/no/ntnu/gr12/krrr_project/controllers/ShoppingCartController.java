@@ -44,6 +44,7 @@ public class ShoppingCartController {
         return cart.getBikes();
     }
 
+    //TODO Move to Service
     @PutMapping ("/api/cart/{cartID}/addItem/{modelNumber}")
     public void addItem(@PathVariable Long cartID, @PathVariable int modelNumber) {
         for (ShoppingCart cartFound : cartService.readCarts()) {
@@ -79,9 +80,26 @@ public class ShoppingCartController {
 
     }
 
+
+
     @PutMapping("/api/cart/{cartID}/emptyCart")
     public void emptyCart(@PathVariable Long cartID) {
-        cartService.emptyShoppingCart(cartID);
+        cartService.emptyShoppingCartItems(cartID);
+        cartService.emptyShoppingCartBikes(cartID);
     }
+
+    @PutMapping("/api/cart/{cartID}/removeItem/{modelNumber}")
+    public void removeItem(@PathVariable Long cartID, @PathVariable int modelNumber) {
+        cartService.deleteItem(cartID, modelNumber);
+    }
+
+    @PutMapping("/api/cart/{cartID}/delete")
+    public boolean removeCart(@PathVariable Long cartID) {
+        if(cartService.deleteShoppingCart(cartID)){
+            return true;
+        }
+        else return false;
+    }
+
 
 }

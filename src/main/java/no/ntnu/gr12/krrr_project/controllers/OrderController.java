@@ -77,21 +77,8 @@ public class OrderController {
         return orders;
     }
 
-    /**
-     * Adds an order to the order list in orderService class through the /orders mapping
-     * @param order the order to be added
-     */
     @PostMapping("api/orders/new")
-    public ResponseEntity<String> addOrder(@RequestBody Order order) {
-        if(order != null) {
-            return new ResponseEntity<String>("Order successfully created", HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<String>("Order not added, something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("api/orders/new2")
-    public ResponseEntity<String> addOrder2(@RequestBody List<String> orderDetails) {
+    public ResponseEntity<String> addOrder(@RequestBody List<String> orderDetails) {
         if(orderService.addOrder(orderDetails)) {
             return new ResponseEntity<String>("Order was successfully added", HttpStatus.OK);
         } else {

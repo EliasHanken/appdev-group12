@@ -19,10 +19,12 @@ public class Bike {
 
     private String bikeModelName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CartID")
     private ShoppingCart cart;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "OrderID")
     private Order order;
 
     /**Id of image of product*/
@@ -32,11 +34,10 @@ public class Bike {
     @Lob
     private byte[] imgData;
 
+    /**True if bike is currently on loan, else false.*/
     private boolean onLoan;
 
-    /**True if bike is currently on loan, else false.*/
     private LocalDateTime loanStartTime;
-
 
     public Bike(){
         this.onLoan = false;
@@ -140,4 +141,20 @@ public class Bike {
   public void setLoanStartTime(LocalDateTime loanStartTime) {
     this.loanStartTime = loanStartTime;
   }
+
+    public ShoppingCart getCart() {
+        return cart;
+    }
+
+    public void setCart(ShoppingCart cart) {
+        this.cart = cart;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

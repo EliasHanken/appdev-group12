@@ -19,14 +19,16 @@ abstract public class Item {
 
     private String modelNumber;
     private float price;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cartID")
+    @ManyToOne()
+    @JoinColumn(name = "cart_ID")
     private ShoppingCart cart;
     /**Link to image of product*/
     private String imgLink;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderID")
+    @ManyToOne()
+    @JoinColumn(name = "order_ID")
     private Order order;
+
+
 
     public Item(String modelNumber, float price) {
         this.modelNumber = modelNumber;

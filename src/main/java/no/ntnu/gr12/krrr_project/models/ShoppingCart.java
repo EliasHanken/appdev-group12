@@ -1,5 +1,8 @@
 package no.ntnu.gr12.krrr_project.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,11 +21,11 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = AUTO)
     private Long cartID;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private final List<Item> items;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private final List<Bike> bikes;
-    @OneToOne
+    @OneToOne()
     private User user;
 
     public ShoppingCart() {
