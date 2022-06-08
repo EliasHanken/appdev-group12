@@ -93,7 +93,7 @@ public class ShoppingCartController {
         cartService.deleteItem(cartID, modelNumber);
     }
 
-    @PutMapping("/api/cart/{cartID}/delete")
+    @DeleteMapping("/api/cart/{cartID}/delete")
     public boolean removeCart(@PathVariable Long cartID) {
         if(cartService.deleteShoppingCart(cartID)){
             return true;
