@@ -133,4 +133,13 @@ public class User {
   public void setName(String name) {
     this.name = name;
   }
+
+  public boolean emptyCart() {
+    this.cart = new ShoppingCart();
+    cart.setUser(this);
+    if(this.cart != null) {
+      return true;
+    }
+    else return false;
+  }
 }

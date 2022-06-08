@@ -55,23 +55,26 @@ public class ShoppingCartService {
     }
 
     @Transactional
-    public String deleteShoppingCart(ShoppingCart cart) {
-        if (repository.findById(cart.getCartID()).isPresent()) {
+    public boolean deleteShoppingCart(Long id) {
+        if (repository.findById(id).isPresent()) {
             try {
-                repository.delete(cart);
-                return "Cart has been deleted";
+                ShoppingCart currentCart = repository.findById(id).get();
+                if(repository.findById(id).get().getUser().emptyCart()) {
+                    repository.delete(currentCart);
+                    return true;
+                }
+                else return false;
             } catch (Exception e) {
                 throw e;
             }
         } else {
-            return "Cart does not exist in DB";
+            return false;
         }
     }
 
     @Transactional
-    public String emptyShoppingCart(Long id) {
+    public String emptyShoppingCartItems(Long id) {
         List<Item> itemsToDelete;
-        List<Bike> bikesToDelete;
         if (repository.findById(id).isPresent()) {
             try {
                 if(repository.findById(id).isPresent()) {
@@ -79,12 +82,6 @@ public class ShoppingCartService {
                         itemsToDelete = repository.findById(id).get().getItems();
                         for (Item i : itemsToDelete) {
                             itemService.deleteItem(i);
-                    }
-                    }
-                    if(!repository.findById(id).get().getBikes().isEmpty()) {
-                        bikesToDelete = repository.findById(id).get().getBikes();
-                        for (Bike b : bikesToDelete) {
-                            bikeService.deleteBike(b);
                     }
                     }
                     return "Cart has been been emptied";
@@ -95,4 +92,43 @@ public class ShoppingCartService {
         }
         return "Cart does not exist in DB";
     }
+
+    @Transactional
+    public String emptyShoppingCartBikes(Long id) {
+        List<Bike> bikesToDelete;
+        if (repository.findById(id).isPresent()) {
+            try {
+                if(repository.findById(id).isPresent()) {
+                    if(!repository.findById(id).get().getBikes().isEmpty()) {
+                        bikesToDelete = repository.findById(id).get().getBikes();
+                        for (Bike b : bikesToDelete) {
+                            bikeService.deleteBike(b);
+                        }
+                    }
+                    return "Cart has been been emptied";
+                }
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return "Cart does not exist in DB";
+    }
+
+    @Transactional
+    public void deleteItem(Long id, int modelNumber) {
+                if (repository.findById(id).isPresent()) {
+                    if (!repository.findById(id).get().getBikes().isEmpty()) {
+                        for (Bike b : repository.findById(id).get().getBikes()) {
+                            if(Integer.toString(modelNumber).equalsIgnoreCase(b.getBikeModel()))
+                                bikeService.deleteBike(b);
+                        }
+                    }
+                    if (!repository.findById(id).get().getItems().isEmpty()) {
+                        for (Item i : repository.findById(id).get().getItems())
+                                if(Integer.toString(modelNumber).equalsIgnoreCase(i.getModelNumber())) {
+                                    itemService.deleteItem(i);
+                        }
+                    }
+                }
+            }
 }

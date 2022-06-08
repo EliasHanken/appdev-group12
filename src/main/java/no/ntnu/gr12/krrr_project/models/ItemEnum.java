@@ -6,10 +6,10 @@ package no.ntnu.gr12.krrr_project.models;
 public enum ItemEnum {
 
 
-  HELMET_NORMAL("2", 150),
-  SUNGLASSES_BASIC("3", 75),
-  TEXTILE_BAG_BASIC("4", 150),
-  CHALK_BASIC("5", 50);
+  HELMET_NORMAL("2", 0),
+  SUNGLASSES_BASIC("3", 0),
+  TEXTILE_BAG_BASIC("4", 250),
+  CHALK_BASIC("5", 150);
 
 
 
