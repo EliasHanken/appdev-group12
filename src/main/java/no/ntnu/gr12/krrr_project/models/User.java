@@ -37,6 +37,7 @@ public class User {
     this.username = username;
     this.password = password;
     this.cart = new ShoppingCart();
+    this.cart.setUser(this);
   }
 
   public Long getId() {
