@@ -47,28 +47,27 @@ public class ShoppingCartService {
                 cartToUpdate.setCartID(cart.getCartID());
                 return "Cart info is updated";
             } catch (Exception e) {
-                throw e;
+                e.printStackTrace();
             }
         } else {
             return "Cart does not exist in DB";
         }
+        return "Cart does not exist in DB";
     }
 
     @Transactional
-    public boolean deleteShoppingCart(Long id) {
+    public String deleteShoppingCart(Long id) {
         if (repository.findById(id).isPresent()) {
             try {
-                if(repository.findById(id).get().getUser().emptyCart()) {
-                    repository.deleteById(id);
-                    return true;
-                }
-                else return false;
+                repository.findById(id).get().getUser().emptyCart();
+                repository.deleteById(id);
             } catch (Exception e) {
-                throw e;
+                e.printStackTrace();
             }
         } else {
-            return false;
+            return "not found";
         }
+        return "Cart does not exist in DB";
     }
 
     @Transactional

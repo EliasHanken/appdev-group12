@@ -94,12 +94,7 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping("/api/cart/{cartID}/delete")
-    public boolean removeCart(@PathVariable Long cartID) {
-        if(cartService.deleteShoppingCart(cartID)){
-            return true;
-        }
-        else return false;
+    public void removeCart(@PathVariable Long cartID) {
+        cartService.deleteShoppingCart(cartID);
     }
-
-
 }
