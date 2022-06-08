@@ -1,0 +1,785 @@
+{
+	"info": {
+		"_postman_id": "df13c63d-3f24-4905-b70c-1a11ea7d8801",
+		"name": "group12-appdev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19444729"
+	},
+	"item": [
+		{
+			"name": "Register endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"newUsername\", \"MrAnaconda\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"MrAnaconda\",\r\n    \"password\": \"snakesarecool\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/signup",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication new User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"newUserToken\", responseJson.jwt);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"MrAnaconda\",\r\n    \"password\":\"snakesarecool\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/authenticate",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View userPage New",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{newUserToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/users/{{newUsername}}",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						"{{newUsername}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AuthenticationDummy user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token\", responseJson.jwt);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"dave\",\r\n    \"password\":\"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/authenticate",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View userPage Dummy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXZlIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwiaWF0IjoxNjU0NzA0MjU1LCJleHAiOjE2NTQ3OTA2NTV9.d5otoFosXaOvsOic6UA497EX1dQgkbMOHAEdawe6G-s",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/users/dave",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						"dave"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"adminToken\", responseJson.jwt);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/authenticate",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View admin page",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer (Insert)",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://10.212.27.6:8443/admin",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Orders Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/orders",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Orders unAuthorized",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/orders",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cart ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"userCartID\", responseJson);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{newUserToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/users/{{newUsername}}/cartID",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						"{{newUsername}}",
+						"cartID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Item to Cart, User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{newUserToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/cart/{{userCartID}}/addItem/2",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"cart",
+						"{{userCartID}}",
+						"addItem",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make Checkout, User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{newUserToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"Moa\", \"{{newUsername}}\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/orders/new",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"orders",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"userID\", responseJson);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{newUserToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/userId/{{newUsername}}",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"userId",
+						"{{newUsername}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders for User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{newUserToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://10.212.27.6:8443/api/orderbyuserid/{{userID}}",
+					"protocol": "https",
+					"host": [
+						"10",
+						"212",
+						"27",
+						"6"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"orderbyuserid",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"/*",
+					"//Supposed to work but somehow dont? Maybe due to a bug in the security logic in the backend.",
+					"",
+					"pm.sendRequest({",
+					"    url: pm.collectionVariables.get(\"auth_url\"),",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/json'",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({\"username\":\"dave\", \"password\":\"user\"})",
+					"    }",
+					"}, (err, res) => pm.collectionVariables.set(\"auth_dave\", res.json().accessToken));",
+					"*/"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_url",
+			"value": "gr12.appdev.cloudns.ph:8443/api/authenticate",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "auth_dave",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "authKey",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "newUserToken",
+			"value": ""
+		},
+		{
+			"key": "newUsername",
+			"value": "MrAnaconda"
+		},
+		{
+			"key": "adminToken",
+			"value": ""
+		},
+		{
+			"key": "userCartID",
+			"value": ""
+		},
+		{
+			"key": "userID",
+			"value": ""
+		}
+	]
+}
