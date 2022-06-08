@@ -58,9 +58,8 @@ public class ShoppingCartService {
     public boolean deleteShoppingCart(Long id) {
         if (repository.findById(id).isPresent()) {
             try {
-                ShoppingCart currentCart = repository.findById(id).get();
                 if(repository.findById(id).get().getUser().emptyCart()) {
-                    repository.delete(currentCart);
+                    repository.deleteById(id);
                     return true;
                 }
                 else return false;
