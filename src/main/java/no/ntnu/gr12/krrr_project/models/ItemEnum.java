@@ -12,6 +12,7 @@ public enum ItemEnum {
   CHALK_BASIC("5", 50);
 
 
+
   String modelNumber;
   float price;
 
