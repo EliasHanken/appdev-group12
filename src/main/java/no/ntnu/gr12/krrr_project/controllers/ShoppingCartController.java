@@ -1,6 +1,7 @@
 package no.ntnu.gr12.krrr_project.controllers;
 
 import no.ntnu.gr12.krrr_project.models.*;
+import no.ntnu.gr12.krrr_project.services.BikeService;
 import no.ntnu.gr12.krrr_project.services.ItemService;
 import no.ntnu.gr12.krrr_project.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ShoppingCartController {
     private ShoppingCartService cartService;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private BikeService bikeService;
 
     @GetMapping("/api/cart/{cartID}/items")
     public List<Item> getItems(@PathVariable Long cartID) {
@@ -43,29 +46,37 @@ public class ShoppingCartController {
 
     @PutMapping ("/api/cart/{cartID}/addItem/{modelNumber}")
     public void addItem(@PathVariable Long cartID, @PathVariable int modelNumber) {
-        Item itemToBeAdded = null;
-        if(modelNumber == 2) {
-            itemToBeAdded = new Helmet(ItemEnum.HELMET_NORMAL.getModelNumber(), ItemEnum.HELMET_NORMAL.getPrice());
-            itemService.addItem(itemToBeAdded);
-        }
-        if(modelNumber == 3) {
-            itemToBeAdded = new Sunglasses(ItemEnum.SUNGLASSES_BASIC.getModelNumber(), ItemEnum.CHALK_BASIC.getPrice());
-            itemService.addItem(itemToBeAdded);
-        }
-        if(modelNumber == 4) {
-            itemToBeAdded = new TextileBag(ItemEnum.TEXTILE_BAG_BASIC.getModelNumber(), ItemEnum.TEXTILE_BAG_BASIC.getPrice());
-            itemService.addItem(itemToBeAdded);
-        }
-        if(modelNumber == 5) {
-            itemToBeAdded = new Chalk(ItemEnum.CHALK_BASIC.getModelNumber(), ItemEnum.CHALK_BASIC.getPrice());
-            itemService.addItem(itemToBeAdded);
-        }
         for (ShoppingCart cartFound : cartService.readCarts()) {
             if (cartFound.getCartID().equals(cartID)) {
-                cartFound.addItem(itemToBeAdded);
+                if (modelNumber == 1) {
+                    Bike bikeToBeAdded = new Bike("1", "1", "Very nice bike", 123);
+                    bikeService.createBike(bikeToBeAdded);
+                    cartFound.addBike(bikeToBeAdded);
+                }
+                if (modelNumber == 2) {
+                    Item itemToBeAdded = new Helmet(ItemEnum.HELMET_NORMAL.getModelNumber(), ItemEnum.HELMET_NORMAL.getPrice());
+                    itemService.addItem(itemToBeAdded);
+                    cartFound.addItem(itemToBeAdded);
+                }
+                if (modelNumber == 3) {
+                    Item itemToBeAdded = new Sunglasses(ItemEnum.SUNGLASSES_BASIC.getModelNumber(), ItemEnum.CHALK_BASIC.getPrice());
+                    itemService.addItem(itemToBeAdded);
+                    cartFound.addItem(itemToBeAdded);
+                }
+                if (modelNumber == 4) {
+                    Item itemToBeAdded = new TextileBag(ItemEnum.TEXTILE_BAG_BASIC.getModelNumber(), ItemEnum.TEXTILE_BAG_BASIC.getPrice());
+                    itemService.addItem(itemToBeAdded);
+                    cartFound.addItem(itemToBeAdded);
+                }
+                if (modelNumber == 5) {
+                    Item itemToBeAdded = new Chalk(ItemEnum.CHALK_BASIC.getModelNumber(), ItemEnum.CHALK_BASIC.getPrice());
+                    itemService.addItem(itemToBeAdded);
+                    cartFound.addItem(itemToBeAdded);
+                }
                 cartService.updateShoppingCart(cartFound);
             }
         }
+
     }
 
     @PutMapping("/api/cart/{cartID}/emptyCart")

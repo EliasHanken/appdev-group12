@@ -18,9 +18,9 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = AUTO)
     private Long cartID;
-    @OneToMany
+    @OneToMany()
     private final List<Item> items;
-    @OneToMany
+    @OneToMany()
     private final List<Bike> bikes;
     @OneToOne
     private User user;

@@ -36,12 +36,12 @@ public class Loan {
         this.user.setId(id);
     }
 
-    public String getBikeId() {
-        return bike.getBikeId();
+    public Long getBikeId() {
+        return bike.getBikeID();
     }
 
-    public void setBikeId(String bikeId) {
-        this.bike.setBikeId(bikeId);
+    public void setBikeId(Long bikeId) {
+        this.bike.setBikeID(bikeId);
     }
 
     public String getBorrow_date() {

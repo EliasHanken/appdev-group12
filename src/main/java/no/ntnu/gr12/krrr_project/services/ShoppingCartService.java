@@ -70,8 +70,8 @@ public class ShoppingCartService {
 
     @Transactional
     public String emptyShoppingCart(Long id) {
-        List<Item> itemsToDelete = null;
-        List<Bike> bikesToDelete = null;
+        List<Item> itemsToDelete;
+        List<Bike> bikesToDelete;
         if (repository.findById(id).isPresent()) {
             try {
                 if(repository.findById(id).isPresent()) {
@@ -86,7 +86,8 @@ public class ShoppingCartService {
                         for (Bike b : bikesToDelete) {
                             bikeService.deleteBike(b);
                     }
-                    } return "Cart has been been emptied";
+                    }
+                    return "Cart has been been emptied";
                 }
             } catch (Exception e) {
                 throw e;
